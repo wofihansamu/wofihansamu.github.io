@@ -135,10 +135,12 @@
 <section>
     <h1 id="greeting">Generate Voucher</h1>
     <div id="buttons" >
-	Kode Toko <input type="number" name="store" id="store" required><br>
-	Jumlah Voucher <input type="number" name="count" id="count" required><br>
-	Kadaluarsa <input type="text" name="expired" id="expired" required><br>
-	<button id="btnTime" onclick="toggleMainButton()">Submit</button>
+	<table>
+	<tr><td>Kode Toko </td><td><input type="number" name="store" id="store" required></td></tr>
+	<tr><td>Jumlah Voucher </td><td><input type="number" name="count" id="count" required></td></tr>
+	<tr><td>Kadaluarsa </td><td><input type="text" name="expired" id="expired" required></td></tr>
+	<tr><td></td><td><button id="btnTime" onclick="toggleMainButton()">Submit</button></td></tr>
+	</table>
 	</div>
 </section>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -146,26 +148,25 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="application/javascript">
-var dataToSend = {error: 'no data'};
+var dataToSend = "";
 Telegram.WebApp.ready();
 Telegram.WebApp.MainButton
     .onClick(function(){ 
         Telegram.WebApp.sendData(dataToSend);
         Telegram.WebApp.close();
     });
-
 function toggleMainButton() {
-	var store = document.getElementById("store").value
-	var count = document.getElementById("count").value
-	var expired = document.getElementById("expired").value
+	var store = document.getElementById("store").value;
+	var count = document.getElementById("count").value;
+	var expired = document.getElementById("expired").value;
 	
     const mainButton = Telegram.WebApp.MainButton;
-        dataToSend = {store:store, count:count, expired:expired};
+        dataToSend = store+";"+count+";"+expired;
         mainButton.setParams({
             text: 'Approve', 
             is_visible : true, 
             is_active: true
-    })
+    });
 }
 (function() {
 document.getElementById("expired").value = moment().format('DD-MMM-YYYY');
@@ -178,6 +179,7 @@ document.getElementById("expired").value = moment().format('DD-MMM-YYYY');
             minDate: moment(),
             locale: {format: 'DD-MMM-YYYY'}
     });
+	Telegram.WebApp.expand();
 })();
 </script>
 </body>
