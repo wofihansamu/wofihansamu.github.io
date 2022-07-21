@@ -158,7 +158,7 @@ function toggleMainButton() {
 	var count = document.getElementById("count").value;
 	var expired = document.getElementById("expired").value;
     const mainButton = Telegram.WebApp.MainButton;
-        dataToSend = store+";"+count+";"+expired;
+        dataToSend = count+";"+expired;
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
