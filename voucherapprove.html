@@ -49,6 +49,19 @@
             color: var(--tg-theme-button-text-color, #ffffff);
             cursor: pointer;
         }
+		
+		.button_red {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #e3495b;
+            color: var(--tg-theme-button-text-color, #ffffff);
+            cursor: pointer;
+        }
 
         button[disabled] {
             opacity: 0.6;
@@ -144,9 +157,11 @@ var data = JSON.parse(atob(myParam));
 var list = "";
 var i = 0;
 while (i < data.length) {
-    list += "<pre><button id='btnTime' onclick='ApproveButton("+i+")'>Approve</button><button id='btnTime' onclick='RejectButton("+i+")'>Reject</button>";
-    list += "<small>Store: "+data[i].store+"<br>count: <input type=number name=count id=count"+i+" value='"+data[i].count+"'><br>Expired: "+data[i].expired+"</small></pre>";
-    i++
+    list += "<pre>";
+    list += "<small>Store: "+data[i].store+"-"+data[i].store_name+"<br>count: <input type=number name=count id=count"+i+" value='"+data[i].count+"'><br>Expired: "+data[i].expired+"</small>";
+	list += "<button id='btnTime' onclick='ApproveButton("+i+")'>Approve</button><button class='button_red' onclick='RejectButton("+i+")'>Reject</button>";
+    list += "</pre>"
+	i++
 }
 
 var dataToSend = "";
