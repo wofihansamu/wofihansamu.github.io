@@ -136,10 +136,10 @@
     <h1 id="greeting">Form Voucher</h1>
     <div id="buttons" >
 	<table>
-	<tr><td>Jumlah Peserta </td><td><input type="number" name="count" id="count" required></td></tr>
+	<tr><td>Jumlah Peserta </td><td><input type="number" name="count" id="count" onchange="hideButton()" required></td></tr>
 	<tr><td>Tgl Acara </td><td><input type="text" name="event" id="event" onchange="updateExpired()" required></td></tr>
 	<tr><td>Tgl Kadaluarsa </td><td><input type="text" name="expired" id="expired" disabled></td></tr>
-	<tr><td>Nama Acara </td><td><input type="text" name="name" id="name" required></td></tr>
+	<tr><td>Nama Acara </td><td><input type="text" name="name" id="name" onchange="hideButton()"  required></td></tr>
 	<tr><td></td><td><button id="btnTime" onclick="toggleMainButton()">Submit</button></td></tr>
 	</table>
 	</div>
@@ -159,6 +159,11 @@ Telegram.WebApp.MainButton
 
 function updateExpired(){
     document.getElementById("expired").value = moment(document.getElementById("event").value,'DD-MMM-YYYY').add(14,'days').format('DD-MMM-YYYY')
+    hideButton()
+}
+
+function hideButton(){
+    Telegram.WebApp.MainButton.hide()
 }
 
 function toggleMainButton() {
