@@ -179,7 +179,7 @@ function toggleMainButton() {
 (function() {
 document.getElementById("event").value = moment().format('DD-MMM-YYYY');
 document.getElementById("expired").value = moment().add(14,'days').format('DD-MMM-YYYY');
-	$('input[name="expired"]').daterangepicker(
+	$('input[name="event"]').daterangepicker(
 		{
             format:'DD-MMM-YYYY',
             singleDatePicker:true,
