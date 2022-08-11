@@ -169,8 +169,10 @@ function hideButton(){
 function toggleMainButton() {
 	var count = document.getElementById("count").value;
 	var expired = document.getElementById("expired").value;
-	var name= document.getElementById("name").value;
-	
+	var name = document.getElementById("name").value;
+    if(count.length<=0){alert("Jumlah Peserta Wajib diisi");return;}
+    if(expired.length<=0){alert("Expired Wajib diisi");return;}
+	if(name.length<=0){alert("Nama Acara Wajib diisi");return;}
     const mainButton = Telegram.WebApp.MainButton;
         dataToSend = count+";"+expired+";"+name;
         mainButton.setParams({
