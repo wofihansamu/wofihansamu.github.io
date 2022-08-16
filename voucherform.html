@@ -158,7 +158,15 @@ Telegram.WebApp.MainButton
     });
 
 function updateExpired(){
-    document.getElementById("expired").value = moment(document.getElementById("event").value,'DD-MMM-YYYY').add(14,'days').format('DD-MMM-YYYY')
+    var maxDate = moment('2022-08-31','YYYY-MM-DD');
+    var curDate = moment(document.getElementById("event").value,'DD-MMM-YYYY').add(14,'days');
+    var actDate;
+    if(curDate>maxDate){
+        actDate = maxDate;
+    }else{
+        actDate = curDate;
+    }
+    document.getElementById("expired").value = moment(actDate).format('DD-MMM-YYYY');
     hideButton()
 }
 
@@ -185,7 +193,7 @@ function toggleMainButton() {
 
 (function() {
 document.getElementById("event").value = moment().format('DD-MMM-YYYY');
-document.getElementById("expired").value = moment().add(14,'days').format('DD-MMM-YYYY');
+updateExpired()
 	$('input[name="event"]').daterangepicker(
 		{
             format:'DD-MMM-YYYY',
