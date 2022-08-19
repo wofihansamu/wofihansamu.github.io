@@ -158,15 +158,8 @@ Telegram.WebApp.MainButton
     });
 
 function updateExpired(){
-    var maxDate = moment('2022-08-31','YYYY-MM-DD');
     var curDate = moment(document.getElementById("event").value,'DD-MMM-YYYY').add(14,'days');
-    var actDate;
-    if(curDate>maxDate){
-        actDate = maxDate;
-    }else{
-        actDate = curDate;
-    }
-    document.getElementById("expired").value = moment(actDate).format('DD-MMM-YYYY');
+    document.getElementById("expired").value = moment(curDate).format('DD-MMM-YYYY');
     hideButton()
 }
 
@@ -201,6 +194,7 @@ updateExpired()
             showDropdowns: false,
             startDate: moment(),
             minDate: moment(),
+            maxDate: moment('2022-09-30','YYYY-MM-DD'),
             locale: {format: 'DD-MMM-YYYY'}
     });
 	Telegram.WebApp.expand();
