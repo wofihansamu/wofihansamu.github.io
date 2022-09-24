@@ -230,7 +230,7 @@ function sumkecil(){
     for (let index = 15; index < 30; index++) {
         gtotal = gtotal + ll[index].value*1;
     }
-    var dt = "Rp. "+gtotal;
+    var dt = "<b>Rp. "+gtotal+"</b>";
     document.getElementById("ktotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
     return gtotal;
 }
@@ -240,7 +240,7 @@ function sumbesar(){
     for (let index = 0; index < 15; index++) {
         gtotal = gtotal + ll[index].value*1;
     }
-    var dt = "Rp. "+gtotal;
+    var dt = "<b>Rp. "+gtotal+"</b>";
     document.getElementById("btotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
     return gtotal;
 }
@@ -248,7 +248,7 @@ function sumAll(){
     var kecil = sumkecil();
     var besar = sumbesar();
     var gtotal = kecil + besar;
-    var dt = "Rp. "+gtotal;
+    var dt = "<b>Rp. "+gtotal+"</b>";
     document.getElementById("grandtotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
 }
 
