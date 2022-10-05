@@ -286,7 +286,7 @@ function toggleMainButton() {
         var inputdef = document.querySelectorAll("input[type=text]");
         var collect = "";
         for (var i = 0; i < inputdef.length; i++) {
-            collect += inputdef[i].id +'='+ inputdef[i].value + ',';
+            collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
         dataToSend = 'deposit@' + collect
         mainButton.setParams({
