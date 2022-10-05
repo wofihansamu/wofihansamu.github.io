@@ -152,7 +152,7 @@
 </head>
 <body>
 <section>
-    <small>FORM / 2022 / BRANKAS / 0.1c / BOT</small>
+    <small>FORM / 2022 / BRANKAS / 0.1e / BOT</small>
     <h1 id="greeting">STOCK BRANKAS HARIAN</h1>
     <h4 ><select name="date" id="date">
       </select> - <span id="shift"></span></h4>
@@ -201,8 +201,8 @@
             padding: 4px;
             text-align: center;
             margin: 7px 0;">
-                <div style="flex: 50%;"><b>PETUGAS SHIFT</b><br><br><br>Petranita Laoli<br><b>TL/DM Front End</b></div>
-                <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br>Moh Wafi Ruddin<br><b>Petugas Buka Brankas</b></div>
+                <div style="flex: 50%;"><b>PETUGAS SHIFT</b><br><br><br><span id="fe"></span><br><b>TL/DM Front End</b></div>
+                <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br><span id="duty"></span><br><b>Petugas Buka Brankas</b></div>
             </div>
     </small>
     
@@ -288,7 +288,7 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        dataToSend = 'deposit@' + collect
+        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
@@ -310,6 +310,8 @@ function toggleMainButton() {
     dateElem.appendChild(opt2);
 
     document.getElementById("shift").innerHTML = urlParams.get('mode').toUpperCase();
+    document.getElementById("fe").innerHTML = urlParams.get('fe').toUpperCase();
+    document.getElementById("duty").innerHTML = urlParams.get('duty').toUpperCase();
 	Telegram.WebApp.expand();
 })();
 </script>
