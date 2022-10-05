@@ -153,7 +153,10 @@
 <body>
 <section>
     <h1 id="greeting">STOCK BRANKAS HARIAN</h1>
-    <h4 >24 Sept 2022 - Shift Pagi</h4>
+    <h4 ><select name="date">
+        <option value="B">10-Oct-2022</option>
+        <option value="A">09-Oct-2022-</option>
+      </select> - Shift Pagi</h4>
 	<table>
         <tr><th>Nominal</th><th>Value</th></tr>
         <tr><th colspan="2">BRANGKAS BESAR</th></tr>
@@ -278,14 +281,8 @@ function sumAll(){
 }
 
 function toggleMainButton() {
-	var count = document.getElementById("count").value;
-	var expired = document.getElementById("expired").value;
-	var name = document.getElementById("name").value;
-    if(count.length<=0){alert("Jumlah Peserta Wajib diisi");return;}
-    if(expired.length<=0){alert("Expired Wajib diisi");return;}
-	if(name.length<=0){alert("Nama Acara Wajib diisi");return;}
     const mainButton = Telegram.WebApp.MainButton;
-        dataToSend = count+";"+expired+";"+name;
+        dataToSend = ""
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
