@@ -152,7 +152,7 @@
 </head>
 <body>
 <section>
-    <small>FORM / 2022 / BRANKAS / 0.1e / BOT</small>
+    <small>FORM / 2022 / BRANKAS / 0.1f / BOT</small>
     <h1 id="greeting">STOCK BRANKAS HARIAN</h1>
     <h4 ><select name="date" id="date">
       </select> - <span id="shift"></span></h4>
@@ -288,7 +288,7 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+'@' + collect
+        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
