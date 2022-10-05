@@ -129,82 +129,20 @@
         small {
             font-size: 12px;
         }
-        th {
-        background-color: var(--tg-theme-button-color, #50a8eb);
-        color: white;
-        text-align: center;
-        }
-        table, th, td {
-        border: 1px solid var(--tg-theme-button-color, #50a8eb);
-        border-collapse: collapse;
-        padding: 4px;
-
-        }
-        table {
-        width: 100%;
-        text-align: left;
-        border-radius: 6px;
-        }
-        tr:hover {
-            background-color: var(--tg-theme-button-color, rgb(147, 198, 243));
-        }
     </style>
 </head>
 <body>
 <section>
-    <h1 id="greeting">STOCK BRANKAS HARIAN</h1>
-    <h4 >24 Sept 2022 - Shift Pagi</h4>
+    <h1 id="greeting">Form Voucher</h1>
+    <div id="buttons" >
 	<table>
-        <tr><th>Nominal</th><th>Value</th></tr>
-        <tr><th colspan="2">BRANGKAS BESAR</th></tr>
-        <tr><td>Modal</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 100,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 75,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 50,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 20,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 10,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 5,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 2,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 1,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 500</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 200</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 100</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 50</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Campuran</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Tanda Terima</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" required></td></tr>
-        <tr><td><div><b>Total Brangkas</b></div></td><td><div id="btotal">Rp 0</div></td></tr>
-        <tr><th colspan="2">BRANGKAS KECIL</th></tr>
-        <tr><td>Modal</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 100,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 75,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 50,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 20,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 10,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 5,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 2,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 1,000</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 500</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 200</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 100</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Nominal 50</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Campuran</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="hideButton()" required></td></tr>
-        <tr><td>Tanda Terima</td><td><input autocomplete="off" type="number" name="count" id="count" onkeyup="sumAll()" onchange="nformat(this)" required></td></tr>
-        <tr><td><div><b>Total Brangkas</b></div></td><td><div id="ktotal">Rp 0</div></td></tr>
-        <tr><td><div><b>Grand Total</b></div></td><td><div id="grandtotal">Rp 0</div></td></tr>
+	<tr><td>Jumlah Peserta </td><td><input type="number" name="count" id="count" onchange="hideButton()" required></td></tr>
+	<tr><td>Tgl Acara </td><td><input type="text" name="event" id="event" onchange="updateExpired()" required></td></tr>
+	<tr><td>Tgl Kadaluarsa </td><td><input type="text" name="expired" id="expired" disabled></td></tr>
+	<tr><td>Nama Acara </td><td><input type="text" name="name" id="name" onchange="hideButton()"  required></td></tr>
+	<tr><td></td><td><button id="btnTime" onclick="toggleMainButton()">Submit</button></td></tr>
 	</table>
-    <small>
-            <div style="display: flex;
-            background: rgb(240,248,255);
-            border-radius: 4px;
-            padding: 4px;
-            text-align: center;
-            margin: 7px 0;">
-                <div style="flex: 50%;"><b>PETUGAS SHIFT</b><br><br><br>Petranita Laoli<br><b>TL/DM Front End</b></div>
-                <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br>Moh Wafi Ruddin<br><b>Petugas Buka Brankas</b></div>
-            </div>
-    </small>
-    
-    <button id="btnTime" onclick="toggleMainButton()">Submit</button>
+	</div>
 </section>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -219,42 +157,14 @@ Telegram.WebApp.MainButton
         Telegram.WebApp.close();
     });
 
+function updateExpired(){
+    var curDate = moment(document.getElementById("event").value,'DD-MMM-YYYY').add(14,'days');
+    document.getElementById("expired").value = moment(curDate).format('DD-MMM-YYYY');
+    hideButton()
+}
+
 function hideButton(){
     Telegram.WebApp.MainButton.hide()
-}
-
-function nformat(e){
-    var val = e.value;
-    var formating = val.toLocaleString();
-    val.value = formating;
-}
-
-function sumkecil(){
-    var ll = document.querySelectorAll("input[type=number]");
-    var gtotal = 0;
-    for (let index = 15; index < 30; index++) {
-        gtotal = gtotal + ll[index].value*1;
-    }
-    var dt = "<b>Rp. "+gtotal+"</b>";
-    document.getElementById("ktotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
-    return gtotal;
-}
-function sumbesar(){
-    var ll = document.querySelectorAll("input[type=number]");
-    var gtotal = 0;
-    for (let index = 0; index < 15; index++) {
-        gtotal = gtotal + ll[index].value*1;
-    }
-    var dt = "<b>Rp. "+gtotal+"</b>";
-    document.getElementById("btotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
-    return gtotal;
-}
-function sumAll(){
-    var kecil = sumkecil();
-    var besar = sumbesar();
-    var gtotal = kecil + besar;
-    var dt = "<b>Rp. "+gtotal+"</b>";
-    document.getElementById("grandtotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
 }
 
 function toggleMainButton() {
@@ -275,6 +185,18 @@ function toggleMainButton() {
 
 
 (function() {
+document.getElementById("event").value = moment().format('DD-MMM-YYYY');
+updateExpired()
+	$('input[name="event"]').daterangepicker(
+		{
+            format:'DD-MMM-YYYY',
+            singleDatePicker:true,
+            showDropdowns: false,
+            startDate: moment(),
+            minDate: moment(),
+            maxDate: moment('2022-10-31','YYYY-MM-DD'),
+            locale: {format: 'DD-MMM-YYYY'}
+    });
 	Telegram.WebApp.expand();
 })();
 </script>
