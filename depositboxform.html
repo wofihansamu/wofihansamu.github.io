@@ -153,10 +153,8 @@
 <body>
 <section>
     <h1 id="greeting">STOCK BRANKAS HARIAN</h1>
-    <h4 ><select name="date">
-        <option value="B">10-Oct-2022</option>
-        <option value="A">09-Oct-2022-</option>
-      </select> - Shift Pagi</h4>
+    <h4 ><select name="date" id="date">
+      </select> - <span id="shift"></span></h4>
 	<table>
         <tr><th>Nominal</th><th>Value</th></tr>
         <tr><th colspan="2">BRANGKAS BESAR</th></tr>
@@ -215,6 +213,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="application/javascript">
 var dataToSend = "";
+var urlParams = new URLSearchParams(window.location.search);
 Telegram.WebApp.ready();
 Telegram.WebApp.MainButton
     .onClick(function(){ 
@@ -292,6 +291,18 @@ function toggleMainButton() {
 
 
 (function() {
+    var dateElem = document.getElementById("date");
+    dateElem.value = moment().format('DD-MMM-YYYY');
+    var opt1 = document.createElement('option');
+    opt1.value = moment().format('DD-MMM-YYYY');
+    opt1.innerHTML = moment().format('DD-MMM-YYYY');
+    var opt2 = document.createElement('option');
+    opt2.value = moment().subtract(1, 'days').format('DD-MMM-YYYY');
+    opt2.innerHTML = moment().subtract(1, 'days').format('DD-MMM-YYYY');
+    dateElem.appendChild(opt1);
+    dateElem.appendChild(opt2);
+
+    document.getElementById("shift").innerHTML = urlParams.get('mode');
 	Telegram.WebApp.expand();
 })();
 </script>
