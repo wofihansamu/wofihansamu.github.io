@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title></title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        function setThemeClass() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        }
+        Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+        setThemeClass();
+    </script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #222222);
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            color-scheme: var(--tg-color-scheme);
+        }
+
+        a {
+            color: var(--tg-theme-link-color, #2678b6);
+        }
+		
+		input{
+			border-radius: 4px;
+			border-color: var(--tg-theme-button-color, #50a8eb);
+            width: 90px;
+		}
+		
+        button {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--tg-theme-button-color, #50a8eb);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            cursor: pointer;
+        }
+
+        button[disabled] {
+            opacity: 0.6;
+            cursor: auto;
+            pointer-events: none;
+        }
+
+        button.close_btn {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0;
+            margin: 0;
+            padding: 16px 20px;
+            text-transform: uppercase;
+        }
+
+        section {
+            padding: 15px 15px 65px;
+            text-align: center;
+        }
+
+        p {
+            margin: 40px 0 15px;
+        }
+
+        ul {
+            text-align: left;
+        }
+
+        li {
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 7px;
+        }
+
+        pre {
+            background: rgb(240,248,255);
+            border-radius: 4px;
+            padding: 4px;
+            margin: 7px 0;
+            word-break: break-all;
+            word-break: break-word;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .dark pre {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .hint {
+            font-size: .8em;
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        .ok {
+            color: green;
+        }
+
+        .err {
+            color: red;
+        }
+
+        #fixed_wrap {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            transform: translateY(100vh);
+        }
+
+        small {
+            font-size: 12px;
+        }
+        th {
+        background-color: var(--tg-theme-button-color, #50a8eb);
+        color: white;
+        text-align: center;
+        }
+        table, th, td {
+        border: 1px solid var(--tg-theme-button-color, #50a8eb);
+        border-collapse: collapse;
+        padding: 4px;
+        }
+        td.truncate {
+        display: inline-block;
+        white-space: nowrap;
+        }
+        table {
+        width: 100%;
+        text-align: left;
+        border-radius: 6px;
+        }
+        tr:hover {
+            background-color: var(--tg-theme-button-color, rgb(147, 198, 243));
+        }
+    </style>
+</head>
+<body>
+<section>
+    <small>FORM / 2022 / VOUCHER / 0.1 / BOT</small>
+    <h1 id="greeting">STOCK VOUCHER HARIAN</h1>
+    <h4 ><select name="date" id="date">
+      </select> - <span id="shift"></span></h4>
+	<table>
+        <tr><th>Nominal</th><th>Qty</th><th>Value</th></tr>
+        
+        <tr><th colspan="3" >FISIK VOUCHER</th></tr>
+        <tr><td style="text-align: right;">100,000</td><td style="width: 90px;"><input id="v1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><div id="v1a">5,000,000</div></td></tr>
+        <tr><td style="text-align: right;">50,000</td><td><input id="v2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v2a">0</div></td></tr>
+        <tr><td style="text-align: right;">25,000</td><td><input id="v3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v3a">0</div></td></tr>
+        <tr><td style="text-align: right;">10,000</td><td><input id="v4" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v4a">0</div></td></tr>
+        <tr><td><div><b>Total</b></div></td><td><div id="vqty">0</div></td><td> <div id="vtotal">0</div></td></tr>
+        
+        <tr><th colspan="3">PENERIMAAN VOUCHER</th></tr>
+        <tr><td style="text-align: right;">100,000</td><td><input id="p1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p1a">0</div></td></tr>
+        <tr><td style="text-align: right;">50,000</td><td><input id="p2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p2a">0</div></td></tr>
+        <tr><td style="text-align: right;">25,000</td><td><input id="p3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p3a">0</div></td></tr>
+        <tr><td style="text-align: right;">10,000</td><td><input id="p4" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p4a">0</div></td></tr>
+        <tr><td><div><b>Total</b></div></td><td><div id="pqty">0</div></td><td> <div id="ptotal">0</div></td></tr>
+        
+        <tr><th colspan="3">PENGELUARAN VOUCHER</th></tr>
+        <tr><td style="text-align: right;">CUSTOMER</td><td><input id="s1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="s1a">0</div></td></tr>
+        <tr><td style="text-align: right;">PROMOSI</td><td><input id="s2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="s2a">0</div></td></tr>
+        <tr><td><div><b>Total</b></div></td><td><div id="sqty">0</div></td><td> <div id="stotal">0</div></td></tr>
+
+        <tr><th colspan="3">STOCK VOUCHER</th></tr>
+        <tr><td style="text-align: right;">FISIK</td><td><div id="vqty">0</div></td><td> <div id="vtotal">0</div></td></tr>
+        <tr><td style="text-align: right;">SISTEM</td><td><input id="m1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="m1a">0</div></td></tr>
+        <tr><td style="text-align: right;">SELISIH</td><td><div id="mqty">0</div></td><td> <div id="mtotal">0</div></td></tr>
+	</table>
+    <small>
+            <div style="display: flex;
+            background-color:  var(--tg-theme-button-color, rgb(240,248,255)) ;
+            border-radius: 4px;
+            padding: 4px;
+            text-align: center;
+            margin: 7px 0;">
+                <div style="flex: 50%;"><b>PETUGAS SHIFT</b><br><br><br><span id="fe"></span><br><b>TL/DM Front End</b></div>
+                <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br><span id="duty"></span><br><b>Petugas Buka Brankas</b></div>
+            </div>
+    </small>
+    
+    <button id="btnTime" onclick="toggleMainButton()">Submit</button>
+</section>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="application/javascript">
+var dataToSend = "";
+var urlParams = new URLSearchParams(window.location.search);
+Telegram.WebApp.ready();
+Telegram.WebApp.MainButton
+    .onClick(function(){ 
+        Telegram.WebApp.sendData(dataToSend);
+        Telegram.WebApp.close();
+    });
+
+function hideButton(){
+    Telegram.WebApp.MainButton.hide()
+}
+
+function defautlform(e){
+        var val = e.value;
+        var formating = val.replaceAll(",","");
+        e.type = 'number'
+        e.value = formating;
+}
+
+function nformat(e){
+    var inputdef = document.querySelectorAll("input[type=text]");
+    for (var i = 0; i < inputdef.length; i++) {
+        var val = inputdef[i].value;
+        var formating = val.replaceAll(",","");
+        inputdef[i].type = 'number'
+        inputdef[i].value = formating;
+    }
+    sumAll()
+    var input = document.querySelectorAll("input[type=number]");
+    for (var i = 0; i < input.length; i++) {
+        var val = input[i].value;
+        var formating = val.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        input[i].type = 'text'
+        input[i].value = formating;
+    }
+    hideButton()
+}
+
+function sumkecil(){
+    var ll = document.querySelectorAll("input[type=number]");
+    var gtotal = 0;
+    for (let index = 15; index < 30; index++) {
+        gtotal = gtotal + ll[index].value*1;
+    }
+    var dt = "<b>. "+gtotal+"</b>";
+    document.getElementById("ktotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+    return gtotal;
+}
+function sumbesar(){
+    var ll = document.querySelectorAll("input[type=number]");
+    var gtotal = 0;
+    for (let index = 0; index < 15; index++) {
+        gtotal = gtotal + ll[index].value*1;
+    }
+    var dt = "<b>. "+gtotal+"</b>";
+    document.getElementById("btotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+    return gtotal;
+}
+function sumAll(){
+    var fisik = 0;
+    var stockin = 0;
+    var stockout = 0;
+    var system = 0;
+
+
+    var dt = "<b>. "+gtotal+"</b>";
+    document.getElementById("grandtotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+
+function nFormat(str){
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+
+function toggleMainButton() {
+    const mainButton = Telegram.WebApp.MainButton;
+        //Prepare data to send
+        var inputdef = document.querySelectorAll("input[type=text]");
+        var collect = "";
+        for (var i = 0; i < inputdef.length; i++) {
+            collect += inputdef[i].id +'='+ inputdef[i].value + ':';
+        }
+        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+'@' + collect
+        mainButton.setParams({
+            text: 'Send Request', 
+            is_visible : true, 
+            is_active: true
+    });
+}
+
+
+(function() {
+    var dateElem = document.getElementById("date");
+    dateElem.value = moment().format('DD-MMM-YYYY');
+    var opt1 = document.createElement('option');
+    opt1.value = moment().format('DD-MMM-YYYY');
+    opt1.innerHTML = moment().format('DD-MMM-YYYY');
+    var opt2 = document.createElement('option');
+    opt2.value = moment().subtract(1, 'days').format('DD-MMM-YYYY');
+    opt2.innerHTML = moment().subtract(1, 'days').format('DD-MMM-YYYY');
+    dateElem.appendChild(opt1);
+    dateElem.appendChild(opt2);
+
+    document.getElementById("shift").innerHTML = urlParams.get('mode').toUpperCase();
+    document.getElementById("fe").innerHTML = urlParams.get('fe').toUpperCase();
+    document.getElementById("duty").innerHTML = urlParams.get('duty').toUpperCase();
+	Telegram.WebApp.expand();
+})();
+</script>
+</body>
+</html>
