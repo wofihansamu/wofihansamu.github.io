@@ -191,6 +191,7 @@
         <tr><td style="text-align: right;">50</td><td><input id="k13" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td>Campuran</td><td><input id="k14" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td>Tanda Terima</td><td><input id="k15" autocomplete="off" type="text"  onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
+        <tr><td>Modal Selisih Kasir</td><td><input id="k16" autocomplete="off" type="text"  onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td><div><b>Total Brangkas</b></div></td><td><div id="ktotal">Rp 0</div></td></tr>
         <tr><td><div><b>Grand Total</b></div></td><td><div id="grandtotal">Rp 0</div></td></tr>
 	</table>
@@ -255,7 +256,7 @@ function nformat(e){
 function sumkecil(){
     var ll = document.querySelectorAll("input[type=number]");
     var gtotal = 0;
-    for (let index = 15; index < 30; index++) {
+    for (let index = 15; index < 31; index++) {
         gtotal = gtotal + ll[index].value*1;
     }
     var dt = "<b>Rp. "+gtotal+"</b>";
