@@ -168,10 +168,10 @@ async function setCamOption(){
         cameraOptions.innerHTML = options.join('')
 }
 async function startCam(){
-    setCamOption();
+    await setCamOption();
 	let video = document.querySelector("#video");
     let stream = await navigator.mediaDevices.getUserMedia({ 
-	video: { facingMode: { exact: 'environment' }},
+	video: true,
 	audio: false 
 	});
 	video.srcObject = stream;
