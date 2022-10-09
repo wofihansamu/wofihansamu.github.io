@@ -156,8 +156,10 @@ Telegram.WebApp.MainButton
 
 async function startCam(){
 	let video = document.querySelector("#video");
-    let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-	await navigator.mediaDevices.enumerateDevices();
+    let stream = await navigator.mediaDevices.getUserMedia({ 
+	video: { facingMode: { exact: 'environment' }},
+	audio: false 
+	});
 	video.srcObject = stream;
 }
 
