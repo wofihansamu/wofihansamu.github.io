@@ -137,6 +137,7 @@
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
 Telegram.WebApp.ready();
+const html5QrCode;
 const cameraOptions = document.querySelector('.video-options>select');
     function docReady(fn) {
         // see if DOM is already available
@@ -159,7 +160,7 @@ const cameraOptions = document.querySelector('.video-options>select');
 	}
 	
     function changeCam(e){
-        const html5QrCode = new Html5Qrcode("reader", 
+        html5QrCode = new Html5Qrcode("reader", 
             {
             experimentalFeatures: { useBarCodeDetectorIfSupported: true }
             }
@@ -183,7 +184,7 @@ docReady(function () {
 		Html5Qrcode.getCameras().then(devices => {
 			  if (devices && devices.length) {
 				var cameraId = devices[1].id;
-					const html5QrCode = new Html5Qrcode("reader", 
+					html5QrCode = new Html5Qrcode("reader", 
 						{
 						experimentalFeatures: { useBarCodeDetectorIfSupported: true }
 						}

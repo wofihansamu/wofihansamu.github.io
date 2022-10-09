@@ -135,7 +135,12 @@
 <section>
 
 <video id="video" width="320" height="240" autoplay></video>
-<button id="click-photo">Click Photo</button>
+<div class="video-options">
+    <select name="" id="" class="custom-select" onchange="changeCam(this)">
+        <option value="">Select camera</option>
+    </select>
+</div>
+<button id="click-photo">Take Photo</button>
 <canvas id="canvas" width="320" height="240"></canvas>
     
 </section>
@@ -145,6 +150,7 @@
 var dataToSend = "";
 Telegram.WebApp.ready();
 var urlParams = new URLSearchParams(window.location.search);
+const cameraOptions = document.querySelector('.video-options>select');
 var myParam = urlParams.get('data');
 let click_button = document.querySelector("#click-photo");
 
@@ -153,11 +159,28 @@ Telegram.WebApp.MainButton
         Telegram.WebApp.sendData(dataToSend);
         Telegram.WebApp.close();
     });
-
+async function setCamOption(){
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        const options = videoDevices.map(videoDevice => {
+        return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
+        });
+        cameraOptions.innerHTML = options.join('')
+}
 async function startCam(){
 	let video = document.querySelector("#video");
     let stream = await navigator.mediaDevices.getUserMedia({ 
 	video: { facingMode: { exact: 'environment' }},
+	audio: false 
+	});
+	video.srcObject = stream;
+    setCamOption()
+}
+
+async function changeCam(e){
+    let video = document.querySelector("#video");
+    let stream = await navigator.mediaDevices.getUserMedia({ 
+	video: { facingMode: { exact: e.value }},
 	audio: false 
 	});
 	video.srcObject = stream;
@@ -167,9 +190,8 @@ click_button.addEventListener('click', function() {
 	let canvas = document.querySelector("#canvas");
    	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
    	let image_data_url = canvas.toDataURL('image/jpeg');
-   	console.log(image_data_url);
     const mainButton = Telegram.WebApp.MainButton;
-        dataToSend = "";
+        dataToSend = image_data_url;
         mainButton.setParams({
             text: 'Upload Photo', 
             is_visible : true, 
