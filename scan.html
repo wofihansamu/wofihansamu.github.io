@@ -156,7 +156,7 @@ const cameraOptions = document.querySelector('.video-options>select');
     function changeCam(e){
         let index = e.value;
         let idDevice = index === "1" ? devicesList[0].id : devicesList[1].id ;
-        html5QrCode.stop();
+        html5QrCode = new Html5Qrcode("reader",  { experimentalFeatures: { useBarCodeDetectorIfSupported: true } } );
         html5QrCode.start(
             idDevice, 
             {
