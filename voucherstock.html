@@ -178,18 +178,19 @@
         <tr><td><div><b>Total</b></div></td><td><div id="pqty">0</div></td><td> <div id="ptotal">0</div></td></tr>
         
         <tr><th colspan="3">PENGELUARAN VOUCHER</th></tr>
-        <tr><td style="text-align: right;">CUSTOMER</td><td><input id="s1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="s1a">0</div></td></tr>
-        <tr><td style="text-align: right;">PROMOSI</td><td><input id="s2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="s2a">0</div></td></tr>
+        <tr><td style="text-align: right;">CUSTOMER</td><td><input id="s1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><input id="s3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
+        <tr><td style="text-align: right;">PROMOSI</td><td><input id="s2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><input id="s4" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td><div><b>Total</b></div></td><td><div id="sqty">0</div></td><td> <div id="stotal">0</div></td></tr>
 
         <tr><th colspan="3">STOCK VOUCHER</th></tr>
         <tr><td style="text-align: right;">FISIK</td><td><div id="vqty">0</div></td><td> <div id="vtotal">0</div></td></tr>
-        <tr><td style="text-align: right;">SISTEM</td><td><input id="m1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="m1a">0</div></td></tr>
+        <tr><td style="text-align: right;">SISTEM</td><td><input id="m1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><input id="m2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">SELISIH</td><td><div id="mqty">0</div></td><td> <div id="mtotal">0</div></td></tr>
 	</table>
     <small>
             <div style="display: flex;
             background-color:  var(--tg-theme-button-color, rgb(240,248,255)) ;
+            color: var(--tg-theme-button-text-color, #ffffff);
             border-radius: 4px;
             padding: 4px;
             text-align: center;
@@ -245,35 +246,41 @@ function nformat(e){
     hideButton()
 }
 
-function sumkecil(){
-    var ll = document.querySelectorAll("input[type=number]");
-    var gtotal = 0;
-    for (let index = 15; index < 30; index++) {
-        gtotal = gtotal + ll[index].value*1;
-    }
-    var dt = "<b>. "+gtotal+"</b>";
-    document.getElementById("ktotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
-    return gtotal;
-}
-function sumbesar(){
-    var ll = document.querySelectorAll("input[type=number]");
-    var gtotal = 0;
-    for (let index = 0; index < 15; index++) {
-        gtotal = gtotal + ll[index].value*1;
-    }
-    var dt = "<b>. "+gtotal+"</b>";
-    document.getElementById("btotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
-    return gtotal;
-}
 function sumAll(){
     var fisik = 0;
     var stockin = 0;
     var stockout = 0;
     var system = 0;
+    var ll = document.querySelectorAll("input[type=number]");
+    for (let index = 0; index < 30; index++) {
 
+        gtotal = gtotal + ll[index].value*1;
+    }
+    document.getElementById("ktotal").innerHTML = nFormat(dt);
+}
 
-    var dt = "<b>. "+gtotal+"</b>";
-    document.getElementById("grandtotal").innerHTML = dt.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+function getNominal(code){
+    let nominal = 1;
+    switch (code) {
+        case 'v1':
+        case 'p1':
+            nominal = 100000;
+            break;
+        case 'v2':
+        case 'p2':
+            nominal = 50000;
+            break;
+        case 'v3':
+        case 'p3':
+            nominal = 25000;
+            break;
+        case 'v4':
+        case 'p4':
+            nominal = 10000;
+            break;
+
+    }
+    return nominal;
 }
 
 function nFormat(str){
