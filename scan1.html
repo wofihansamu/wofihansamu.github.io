@@ -150,7 +150,7 @@ const cameraOptions = document.querySelector('.video-options>select');
     }
 	
 	async function setCamOption(){
-		const cam = await navigator.mediaDevices.enumerateDevices();
+		const devices = await navigator.mediaDevices.enumerateDevices();
 		const videoDevices = devices.filter(device => device.kind === 'videoinput');
 		  const options = videoDevices.map(videoDevice => {
 			return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
@@ -191,6 +191,7 @@ const cameraOptions = document.querySelector('.video-options>select');
 	}
 
 docReady(function () {
+    setCamOption()
 		Html5Qrcode.getCameras().then(devices => {
 			  if (devices && devices.length) {
 				var cameraId = devices[1].id;
@@ -199,7 +200,7 @@ docReady(function () {
 						experimentalFeatures: { useBarCodeDetectorIfSupported: true }
 						}
 					);
-					setCamOption()
+					
 					html5QrCode.start(
 					  cameraId, 
 					  {
