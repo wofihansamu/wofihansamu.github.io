@@ -130,7 +130,8 @@
     <div id="reader" style="width:100%"></div>
     <div class="video-options">
         <select name="" id="" class="custom-select" onchange="changeCam(this)">
-            <option value="">Select camera</option>
+            <option value="1">Back Camera</option>
+            <option value="0">Front Camera</option>
         </select>
     </div>
 </body>
@@ -138,6 +139,7 @@
 <script>
 Telegram.WebApp.ready();
 let html5QrCode;
+let devicesList;
 const cameraOptions = document.querySelector('.video-options>select');
     function docReady(fn) {
         // see if DOM is already available
@@ -150,23 +152,11 @@ const cameraOptions = document.querySelector('.video-options>select');
         }
     }
 	
-	async function setCamOption(){
-		const devices = await navigator.mediaDevices.enumerateDevices();
-		const videoDevices = devices.filter(device => device.kind === 'videoinput');
-		  const options = videoDevices.map(videoDevice => {
-			return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
-		  });
-          cameraOptions.innerHTML = options.join('')
-	}
-	
     function changeCam(e){
-        html5QrCode = new Html5Qrcode("reader", 
-            {
-            experimentalFeatures: { useBarCodeDetectorIfSupported: true }
-            }
-        );
+        let index = e.value;
+        let idDevice = index === "1" ? devicesList[0].id : devicesList[1].id ;
         html5QrCode.start(
-            e.value, 
+            idDevice, 
             {
             fps: 10,    
             qrbox: { width: 250, height: 250 }
@@ -183,13 +173,13 @@ const cameraOptions = document.querySelector('.video-options>select');
 docReady(function () {
 		Html5Qrcode.getCameras().then(devices => {
 			  if (devices && devices.length) {
-				var cameraId = devices[1].id;
+                devicesList = devices
+				var cameraId = devicesList[1].id;
 					html5QrCode = new Html5Qrcode("reader", 
 						{
 						experimentalFeatures: { useBarCodeDetectorIfSupported: true }
 						}
 					);
-					setCamOption()
 					html5QrCode.start(
 					  cameraId, 
 					  {
