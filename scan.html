@@ -156,6 +156,7 @@ const cameraOptions = document.querySelector('.video-options>select');
     function changeCam(e){
         let index = e.value;
         let idDevice = index === "1" ? devicesList[0].id : devicesList[1].id ;
+        html5QrCode.stop();
         html5QrCode.start(
             idDevice, 
             {
@@ -175,7 +176,7 @@ docReady(function () {
 		Html5Qrcode.getCameras().then(devices => {
 			  if (devices && devices.length) {
                 devicesList = devices
-                document.querySelector('#info').innerHTML = JSON.stringify(devicesList);
+                //document.querySelector('#info').innerHTML = JSON.stringify(devicesList);
 				var cameraId = devicesList[1].id;
 					html5QrCode = new Html5Qrcode("reader", 
 						{
