@@ -134,6 +134,7 @@
             <option value="0">Front Camera</option>
         </select>
     </div>
+    <div id="info"></div>
 </body>
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
@@ -174,6 +175,7 @@ docReady(function () {
 		Html5Qrcode.getCameras().then(devices => {
 			  if (devices && devices.length) {
                 devicesList = devices
+                document.querySelector('#info').innerHTML = devicesList;
 				var cameraId = devicesList[1].id;
 					html5QrCode = new Html5Qrcode("reader", 
 						{
