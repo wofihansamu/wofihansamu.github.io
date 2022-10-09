@@ -127,7 +127,7 @@
 </head>
 	
 <body>
-    <div id="reader" style="width:100%"></div>
+    <div id="reader" style="width:100%"></div>v1
 	 <div class="video-options">
         <select name="" id="" class="custom-select" onchange="changeCam(this)">
             <option value="">Select camera</option>
@@ -159,34 +159,24 @@ const cameraOptions = document.querySelector('.video-options>select');
 	}
 	
 	function changeCam(e){
-        Html5Qrcode.getCameras().then(devices => {
-			  if (devices && devices.length) {
-				var cameraId = e.value;
-					const html5QrCode = new Html5Qrcode("reader", 
-						{
-						experimentalFeatures: { useBarCodeDetectorIfSupported: true }
-						}
-					);
-					html5QrCode.start(
-					  cameraId, 
-					  {
-						fps: 10,    
-						qrbox: { width: 250, height: 250 }
-					  },
-					  (decodedText, decodedResult) => {
-							Telegram.WebApp.sendData(decodedText);
-							Telegram.WebApp.close();
-					  },
-					  (errorMessage) => {
-						console.error(errorMessage);
-					  })
-					.catch((err) => {
-					  console.error(err);
-					});
-			  }
-			}).catch(err => {
-			  console.error(err);
-			});
+        const html5QrCode = new Html5Qrcode("reader", 
+            {
+            experimentalFeatures: { useBarCodeDetectorIfSupported: true }
+            }
+        );
+        html5QrCode.start(
+            e.value, 
+            {
+            fps: 10,    
+            qrbox: { width: 250, height: 250 }
+            },
+            (decodedText, decodedResult) => {
+                Telegram.WebApp.sendData(decodedText);
+                Telegram.WebApp.close();
+            },
+            (errorMessage) => {
+            console.error(errorMessage);
+            })
 	}
 
 docReady(function () {
