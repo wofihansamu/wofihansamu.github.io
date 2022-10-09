@@ -168,21 +168,30 @@ async function setCamOption(){
         });
         cameraOptions.innerHTML = options.join('')
 }
+
+function hasCameraPermissions() {
+        return new Promise((resolve, _) => {
+            navigator.mediaDevices.enumerateDevices().then((devices) => {
+                devices.forEach((device) => {
+                    if (device.kind === "videoinput" && device.label) {
+                        resolve(true);
+                    }
+                });
+                resolve(false);
+            });
+        });
+    }
 async function startCam(){
 	let video = document.querySelector("#video");
-    if (navigator.mediaDevices) {
-        navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(async function(stream) {
+    hasCameraPermissions.then(async function(ok){
+        if(ok){
             let streaming = await navigator.mediaDevices.getUserMedia({ 
             video: true,
             audio: false 
             });
             video.srcObject = streaming;
-            setCamOption();
-        });
-        
-    } else {
-        alert('Media devices is not supported in this browser');
-    }	
+        }
+    })
 }
 
 async function changeCam(e){
