@@ -172,7 +172,11 @@ async function startCam(){
 	let video = document.querySelector("#video");
     if (navigator.mediaDevices) {
         navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(async function(stream) {
-            video.srcObject = stream;
+            let streaming = await navigator.mediaDevices.getUserMedia({ 
+            video: true,
+            audio: false 
+            });
+            video.srcObject = streaming;
             setCamOption();
         });
         
