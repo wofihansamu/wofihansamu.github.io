@@ -183,15 +183,53 @@ function hasCameraPermissions() {
     }
 async function startCam(){
 	let video = document.querySelector("#video");
-    hasCameraPermissions.then(async function(ok){
-        if(ok){
-            let streaming = await navigator.mediaDevices.getUserMedia({ 
-            video: true,
-            audio: false 
-            });
-            video.srcObject = streaming;
-        }
-    })
+    let All_mediaDevices=navigator.mediaDevices;
+
+         if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+
+            console.log("getUserMedia() not supported.");
+
+            return;
+
+         }
+
+         All_mediaDevices.getUserMedia({
+
+            audio: false,
+
+            video: true
+
+         })
+
+         .then(function(vidStream) {
+
+            var video = document.getElementById('videoCam');
+
+            if ("srcObject" in video) {
+
+               video.srcObject = vidStream;
+
+            } else {
+
+               video.src = window.URL.createObjectURL(vidStream);
+
+            }
+
+            video.onloadedmetadata = function(e) {
+
+               video.play();
+
+            };
+
+         })
+
+         .catch(function(e) {
+
+            console.log(e.name + ": " + e.message);
+
+         });
+
+      }
 }
 
 async function changeCam(e){
