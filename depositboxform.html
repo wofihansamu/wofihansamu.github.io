@@ -290,7 +290,7 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+'@' + collect
+        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
