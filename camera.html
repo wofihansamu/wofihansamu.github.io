@@ -183,7 +183,7 @@ function hasCameraPermissions() {
     }
 async function startCam(){
 	let video = document.querySelector("#video");
-    let All_mediaDevices=navigator.mediaDevices;
+    let All_mediaDevices=navigator.mediaDevices
 
          if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
 
@@ -203,7 +203,7 @@ async function startCam(){
 
          .then(function(vidStream) {
 
-            var video = document.getElementById('videoCam');
+            var video = document.getElementById('video');
 
             if ("srcObject" in video) {
 
