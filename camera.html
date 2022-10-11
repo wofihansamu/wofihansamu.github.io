@@ -133,7 +133,8 @@
 </head>
 <body>
    <video id="videoCam"></video>
-   <button id="click-photo">Take Photo</button>
+   <button id="opencam" onclick="openCam()">Open Cam</button>
+   <button id="click-photo" style="display: none;">Take Photo</button>
    <canvas id="canvas" width="240" height="320"></canvas>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -156,8 +157,7 @@ click_button.addEventListener('click', function() {
             is_active: true
     });
 });
-Telegram.WebApp.MainButton
-    .onClick(function(){ 
+Telegram.WebApp.MainButton.onClick(function(){ 
         Telegram.WebApp.sendData(dataToSend);
         Telegram.WebApp.close();
     });
@@ -178,10 +178,11 @@ Telegram.WebApp.MainButton
             } else {
                video.src = window.URL.createObjectURL(vidStream);
             }
-
             video.onloadedmetadata = function(e) {
                video.play();
             };
+            document.getElementById('opencam').style.display = "none";
+            document.getElementById('click-photo').style.display = "block";
          })
          .catch(function(e) {
             console.log(e.name + ": " + e.message);
@@ -190,7 +191,6 @@ Telegram.WebApp.MainButton
 
 (function() {
 	Telegram.WebApp.expand();
-    setTimeout(openCam, 3000);
 })();
    </script>
 </body>
