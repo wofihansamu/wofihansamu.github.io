@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-   <video id="videoCam"></video>
+   <video id="videoCam" width="240" height="320"></video>
    <button id="opencam" onclick="openCam()">Open Cam</button>
    <button id="click-photo" style="display: none;" onclick="takePhoto()">Take Photo</button>
    <canvas id="canvas" width="240" height="320"></canvas>
@@ -146,18 +146,19 @@ function takePhoto() {
 	let canvas = document.querySelector("#canvas");
    	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
    	let image_data_url = canvas.toDataURL('image/jpeg');
+    dataToSend = image_data_url
     Telegram.WebApp.MainButton.setParams({
             text: 'Upload Photo', 
             is_visible : true, 
             is_active: true
     });
-    Telegram.WebApp.MainButton.onClick(function(){ 
-        Telegram.WebApp.sendData(image_data_url);
-        Telegram.WebApp.close();
-    });
 }
 
 function openCam(){
+    Telegram.WebApp.MainButton.onClick(function(){ 
+        Telegram.WebApp.sendData(dataToSend);
+        Telegram.WebApp.close();
+    });
     let All_mediaDevices=navigator.mediaDevices
     if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
     console.log("getUserMedia() not supported.");
