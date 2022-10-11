@@ -134,13 +134,13 @@
 <body>
 <section>
 
-<video id="video" width="320" height="240" autoplay></video>
+<video id="video" width="320" height="240"></video>
 <div class="video-options">
     <select name="" id="" class="custom-select" onchange="changeCam(this)">
         <option value="">Select camera</option>
     </select>
 </div>
-<button id="click-photo">Take Photo</button>
+<button id="click-photo">Take Photo</button>v1
 <canvas id="canvas" width="320" height="240"></canvas>
     
 </section>
@@ -219,7 +219,7 @@ click_button.addEventListener('click', function() {
 });
 (function() {
     startCam();
-	Telegram.WebApp.expand();
+	//Telegram.WebApp.expand();
 })();
 </script>
 </body>
