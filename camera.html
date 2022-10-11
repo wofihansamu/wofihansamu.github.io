@@ -132,9 +132,35 @@
     </style>
 </head>
 <body>
-    <button id="startBtn" onclick="openCam()">Open Webcam</button>
-   <video id="videoCam" width="320" height="240"></video>
-   <script>
+   <video id="videoCam"></video>
+   <button id="startBtn" onclick="openCam()">Open Cam</button>
+   <button id="click-photo">Take Photo</button>
+   <canvas id="canvas" width="240" height="320"></canvas>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="application/javascript">
+var dataToSend = "";
+Telegram.WebApp.ready();
+var urlParams = new URLSearchParams(window.location.search);
+var myParam = urlParams.get('data');
+let click_button = document.querySelector("#click-photo");
+click_button.addEventListener('click', function() {
+	let canvas = document.querySelector("#canvas");
+   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+   	let image_data_url = canvas.toDataURL('image/jpeg');
+    const mainButton = Telegram.WebApp.MainButton;
+        dataToSend = image_data_url;
+        mainButton.setParams({
+            text: 'Upload Photo', 
+            is_visible : true, 
+            is_active: true
+    });
+});
+Telegram.WebApp.MainButton
+    .onClick(function(){ 
+        Telegram.WebApp.sendData(dataToSend);
+        Telegram.WebApp.close();
+    });
       function openCam(){
          let All_mediaDevices=navigator.mediaDevices
          if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
