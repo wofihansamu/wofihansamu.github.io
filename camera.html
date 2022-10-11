@@ -132,6 +132,7 @@
     </style>
 </head>
 <body>
+    <button id="startBtn" onclick="openCam()">Open Webcam</button>
    <video id="videoCam" width="320" height="240"></video>
    <script>
       function openCam(){
@@ -161,7 +162,6 @@
       }
 
 (function() {
-    openCam();
 	Telegram.WebApp.expand();
 })();
    </script>
