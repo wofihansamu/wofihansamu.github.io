@@ -140,33 +140,23 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="application/javascript">
 var dataToSend = "";
+var video;
 Telegram.WebApp.ready();
-Telegram.WebApp.MainButton
-    .onClick(function(){ 
-        Telegram.WebApp.sendData(dataToSend);
-        Telegram.WebApp.close();
-    });
-var urlParams = new URLSearchParams(window.location.search);
-var myParam = urlParams.get('data');
-let video;
-let click_button = document.querySelector("#click-photo");
-
 function takePhoto() {
-    hideButton()
 	let canvas = document.querySelector("#canvas");
    	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
    	let image_data_url = canvas.toDataURL('image/jpeg');
-    dataToSend = image_data_url;
-    const mainButton = Telegram.WebApp.MainButton;
-    mainButton.setParams({
+    Telegram.WebApp.MainButton.setParams({
             text: 'Upload Photo', 
             is_visible : true, 
             is_active: true
     });
+    Telegram.WebApp.MainButton.onClick(function(){ 
+        Telegram.WebApp.sendData(image_data_url);
+        Telegram.WebApp.close();
+    });
 }
-function hideButton(){
-    Telegram.WebApp.MainButton.hide()
-}
+
 function openCam(){
     let All_mediaDevices=navigator.mediaDevices
     if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
@@ -178,23 +168,22 @@ function openCam(){
     video: { facingMode: { exact: 'environment' }}
     })
     .then(function(vidStream) {
-    video = document.getElementById('videoCam');
-    if ("srcObject" in video) {
-        video.srcObject = vidStream;
-    } else {
-        video.src = window.URL.createObjectURL(vidStream);
-    }
-    video.onloadedmetadata = function(e) {
-        video.play();
-    };
-    document.getElementById('opencam').style.display = "none";
-    document.getElementById('click-photo').style.display = "block";
-    })
+        video = document.getElementById('videoCam');
+        if ("srcObject" in video) {
+            video.srcObject = vidStream;
+        } else {
+            video.src = window.URL.createObjectURL(vidStream);
+        }
+        video.onloadedmetadata = function(e) {
+            video.play();
+        };
+        document.getElementById('opencam').style.display = "none";
+        document.getElementById('click-photo').style.display = "block";
+        })
     .catch(function(e) {
-    console.log(e.name + ": " + e.message);
+        console.log(e.name + ": " + e.message);
     });
 }
-
 (function() {
 	Telegram.WebApp.expand();
 })();
