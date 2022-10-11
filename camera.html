@@ -133,7 +133,6 @@
 </head>
 <body>
    <video id="videoCam"></video>
-   <button id="startBtn" onclick="openCam()">Open Cam</button>
    <button id="click-photo">Take Photo</button>
    <canvas id="canvas" width="240" height="320"></canvas>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -143,6 +142,7 @@ var dataToSend = "";
 Telegram.WebApp.ready();
 var urlParams = new URLSearchParams(window.location.search);
 var myParam = urlParams.get('data');
+var video;
 let click_button = document.querySelector("#click-photo");
 click_button.addEventListener('click', function() {
 	let canvas = document.querySelector("#canvas");
@@ -172,12 +172,13 @@ Telegram.WebApp.MainButton
             video: { facingMode: { exact: 'environment' }}
          })
          .then(function(vidStream) {
-            var video = document.getElementById('videoCam');
+            video = document.getElementById('videoCam');
             if ("srcObject" in video) {
                video.srcObject = vidStream;
             } else {
                video.src = window.URL.createObjectURL(vidStream);
             }
+
             video.onloadedmetadata = function(e) {
                video.play();
             };
@@ -189,6 +190,7 @@ Telegram.WebApp.MainButton
 
 (function() {
 	Telegram.WebApp.expand();
+    setTimeout(openCam, 3000);
 })();
    </script>
 </body>
