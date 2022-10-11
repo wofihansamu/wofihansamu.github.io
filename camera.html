@@ -178,7 +178,7 @@ async function startCam(){
          }
          All_mediaDevices.getUserMedia({
             audio: false,
-            video: true
+            video:  { facingMode: { exact: 'environment' }},
          })
          .then(function(vidStream) {
             var video = document.getElementById('video');
