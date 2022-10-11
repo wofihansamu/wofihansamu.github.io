@@ -143,6 +143,7 @@ var dataToSend = "";
 var video;
 Telegram.WebApp.ready();
 Telegram.WebApp.MainButton.onClick(function(){ 
+    alert("oke")
     Telegram.WebApp.sendData(dataToSend);
     Telegram.WebApp.close();
 });
@@ -154,22 +155,12 @@ function toggleMainButton() {
    	let image_data_url = canvas.toDataURL('image/jpeg');
         dataToSend = image_data_url
         mainButton.setParams({
-            text: 'Send Request', 
-            is_visible : true, 
-            is_active: true
-    });
-}
-function takePhoto() {
-	let canvas = document.querySelector("#canvas");
-   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-   	let image_data_url = canvas.toDataURL('image/jpeg');
-    dataToSend = image_data_url
-    Telegram.WebApp.MainButton.setParams({
             text: 'Upload Photo', 
             is_visible : true, 
             is_active: true
     });
 }
+
 function openCam(){
     let All_mediaDevices=navigator.mediaDevices
     if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
