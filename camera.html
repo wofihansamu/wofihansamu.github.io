@@ -134,7 +134,7 @@
 <body>
    <video id="videoCam" width="240" height="320"></video>
    <button id="opencam" onclick="openCam()">Open Cam</button>
-   <button id="click-photo" style="display: none;" onclick="takePhoto()">Take Photo</button>
+   <button id="click-photo" style="display: none;" onclick="toggleMainButton()">Take Photo</button>
    <canvas id="canvas" width="240" height="320"></canvas>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -142,6 +142,23 @@
 var dataToSend = "";
 var video;
 Telegram.WebApp.ready();
+Telegram.WebApp.MainButton.onClick(function(){ 
+    Telegram.WebApp.sendData(dataToSend);
+    Telegram.WebApp.close();
+});
+
+function toggleMainButton() {
+    const mainButton = Telegram.WebApp.MainButton;
+    let canvas = document.querySelector("#canvas");
+   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+   	let image_data_url = canvas.toDataURL('image/jpeg');
+        dataToSend = image_data_url
+        mainButton.setParams({
+            text: 'Send Request', 
+            is_visible : true, 
+            is_active: true
+    });
+}
 function takePhoto() {
 	let canvas = document.querySelector("#canvas");
    	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -153,12 +170,7 @@ function takePhoto() {
             is_active: true
     });
 }
-
 function openCam(){
-    Telegram.WebApp.MainButton.onClick(function(){ 
-        Telegram.WebApp.sendData(dataToSend);
-        Telegram.WebApp.close();
-    });
     let All_mediaDevices=navigator.mediaDevices
     if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
     console.log("getUserMedia() not supported.");
