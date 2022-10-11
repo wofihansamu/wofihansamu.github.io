@@ -143,8 +143,9 @@ var dataToSend = "";
 Telegram.WebApp.ready();
 var urlParams = new URLSearchParams(window.location.search);
 var myParam = urlParams.get('data');
-var video;
+let video;
 let click_button = document.querySelector("#click-photo");
+
 click_button.addEventListener('click', function() {
 	let canvas = document.querySelector("#canvas");
    	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -157,37 +158,40 @@ click_button.addEventListener('click', function() {
             is_active: true
     });
 });
-Telegram.WebApp.MainButton.onClick(function(){ 
+
+Telegram.WebApp.MainButton
+.onClick(function(){ 
         Telegram.WebApp.sendData(dataToSend);
         Telegram.WebApp.close();
     });
-      function openCam(){
-         let All_mediaDevices=navigator.mediaDevices
-         if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
-            console.log("getUserMedia() not supported.");
-            return;
-         }
-         All_mediaDevices.getUserMedia({
-            audio: false,
-            video: { facingMode: { exact: 'environment' }}
-         })
-         .then(function(vidStream) {
-            video = document.getElementById('videoCam');
-            if ("srcObject" in video) {
-               video.srcObject = vidStream;
-            } else {
-               video.src = window.URL.createObjectURL(vidStream);
-            }
-            video.onloadedmetadata = function(e) {
-               video.play();
-            };
-            document.getElementById('opencam').style.display = "none";
-            document.getElementById('click-photo').style.display = "block";
-         })
-         .catch(function(e) {
-            console.log(e.name + ": " + e.message);
-         });
-      }
+
+function openCam(){
+    let All_mediaDevices=navigator.mediaDevices
+    if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+    console.log("getUserMedia() not supported.");
+    return;
+    }
+    All_mediaDevices.getUserMedia({
+    audio: false,
+    video: { facingMode: { exact: 'environment' }}
+    })
+    .then(function(vidStream) {
+    video = document.getElementById('videoCam');
+    if ("srcObject" in video) {
+        video.srcObject = vidStream;
+    } else {
+        video.src = window.URL.createObjectURL(vidStream);
+    }
+    video.onloadedmetadata = function(e) {
+        video.play();
+    };
+    document.getElementById('opencam').style.display = "none";
+    document.getElementById('click-photo').style.display = "block";
+    })
+    .catch(function(e) {
+    console.log(e.name + ": " + e.message);
+    });
+}
 
 (function() {
 	Telegram.WebApp.expand();
