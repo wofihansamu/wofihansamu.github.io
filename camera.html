@@ -135,7 +135,7 @@
    <video id="videoCam" width="240" height="320"></video>
    <button id="opencam" onclick="openCam()">Open Cam</button>
    <button id="click-photo" style="display: none;" onclick="toggleMainButton()">Take Photo</button>
-   <canvas id="canvas" width="240" height="320"></canvas>
+   <canvas id="canvas" width="120" height="160"></canvas>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="application/javascript">
@@ -152,7 +152,7 @@ function toggleMainButton() {
     const mainButton = Telegram.WebApp.MainButton;
     let canvas = document.querySelector("#canvas");
    	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-   	let image_data_url = canvas.toDataURL('image/jpeg');
+   	let image_data_url = canvas.toDataURL();
         dataToSend = image_data_url
         mainButton.setParams({
             text: 'Upload Photo', 
