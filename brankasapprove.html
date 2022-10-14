@@ -248,7 +248,7 @@ for (let index = 0; index < DataBrankas.length; index++) {
 
 var i = 0;
 list += "<h2>" + moment(DataBrankas[0].trxdate).format("DD MMM YYYY") + "</h2>";
-list += "<h3>BUKA</h3>";
+list += "<h3>BUKA BRANKAS</h3>";
 list += "<pre>";
 while (i < element.BUKA.length) {
     list += "<small><b>"+element.BUKA[i][0]+"</b> "+element.BUKA[i][1]+": "+numberFormat(element.BUKA[i][2].split(".")[0])+" <input type=checkbox></small><br>";
@@ -260,7 +260,7 @@ list += "<b> Grand Total " + numberFormat(TotalBuka) + " </b> "
 list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
 list += "</pre>"
 i = 0;
-list += "<h3>TUTUP</h3>";
+list += "<h3>TUTUP BRANKAS</h3>";
 list += "<pre>";
 while (i < element.TUTUP.length) {
     list += "<small><b>"+element.TUTUP[i][0]+"</b> "+element.TUTUP[i][1]+": "+numberFormat(element.TUTUP[i][2].split(".")[0])+" <input type=checkbox></small><br>";
@@ -286,7 +286,7 @@ Telegram.WebApp.MainButton
         var checked = 0;
         for (var i = 0; i < inputdef.length; i++) {
             if(inputdef[i].checked){
-                collect++;
+                checked++;
             }
         }
         if(checked === DataBrankas.length){
