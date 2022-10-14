@@ -11,6 +11,7 @@
     <title></title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
         function setThemeClass() {
             document.documentElement.className = Telegram.WebApp.colorScheme;
@@ -297,7 +298,7 @@ Telegram.WebApp.MainButton
                     is_active: true
             });
         }else{
-            alert("Semua Stock Brankas Harus di Check List")
+            swal("Semua Stock Brankas Harus di Check List","Error","error")
         }
 }
 
