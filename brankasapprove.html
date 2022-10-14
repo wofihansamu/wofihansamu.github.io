@@ -163,7 +163,7 @@ var myParam = urlParams.get('data');
 //var DataBrankas = JSON.parse(atob(myParam));
 var DataBrankas = [{
   store: '901',
-  trxdate: 2022-10-12,
+  trxdate: '2022-10-12',
   parent_field: 'Brankas Besar',
   field_name: 'Modal',
   amount: '300000.000000',
@@ -173,7 +173,7 @@ var DataBrankas = [{
 },
 {
   store: '901',
-  trxdate: 2022-10-12,
+  trxdate: '2022-10-12',
   parent_field: 'Brankas Besar',
   field_name: 'Modal',
   amount: '200000.000000',
@@ -183,7 +183,7 @@ var DataBrankas = [{
 },
 {
   store: '901',
-  trxdate: 2022-10-12,
+  trxdate: '2022-10-12',
   parent_field: 'Brankas Besar',
   field_name: '100k',
   amount: '1500000.000000',
@@ -193,7 +193,7 @@ var DataBrankas = [{
 },
 {
   store: '901',
-  trxdate: 2022-10-12,
+  trxdate: '2022-10-12',
   parent_field: 'Brankas Kecil',
   field_name: 'Campuran',
   amount: '100000.000000',
@@ -216,6 +216,11 @@ let TutupKecil = 0;
 let TotalTutup = 0;
 for (let index = 0; index < DataBrankas.length; index++) {
 			if(DataBrankas[index].shift == 'BUKA'){
+                if(DataBrankas[index].parent_field == 'Brankas Besar'){
+                    BukaBesar = BukaBesar + DataBrankas[index].amount*1
+                }else{
+                    BukaKecil = BukaKecil + DataBrankas[index].amount*1
+                }
 					element.BUKA.push([
                         DataBrankas[index].parent_field,
                         DataBrankas[index].field_name,
@@ -225,6 +230,11 @@ for (let index = 0; index < DataBrankas.length; index++) {
                     FeBuka = DataBrankas[index].fe
                     DutyBuka = DataBrankas[index].duty
 			}else{
+                if(DataBrankas[index].parent_field == 'Brankas Besar'){
+                    TutupBesar = TutupBesar + DataBrankas[index].amount*1
+                }else{
+                    TutupKecil = TutupKecil + DataBrankas[index].amount*1
+                }
                 element.TUTUP.push([
                         DataBrankas[index].parent_field,
                         DataBrankas[index].field_name,
@@ -237,12 +247,15 @@ for (let index = 0; index < DataBrankas.length; index++) {
 		}
 
 var i = 0;
+list += "<h2>" + moment(DataBrankas[0].trxdate).format("DD MMM YYYY") + "</h2>";
 list += "<h3>BUKA</h3>";
 list += "<pre>";
 while (i < element.BUKA.length) {
     list += "<small><b>"+element.BUKA[i][0]+"</b> "+element.BUKA[i][1]+": "+numberFormat(element.BUKA[i][2].split(".")[0])+" <input type=checkbox></small><br>";
 	i++
 }
+list += "<hr><b> Total Besar " + numberFormat(BukaBesar) + " </b><br>"
+list += "<b> Total Kecil " + numberFormat(BukaKecil) + " </b><br>"
 list += "<b> Grand Total " + numberFormat(TotalBuka) + " </b> "
 list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
 list += "</pre>"
@@ -253,6 +266,8 @@ while (i < element.TUTUP.length) {
     list += "<small><b>"+element.TUTUP[i][0]+"</b> "+element.TUTUP[i][1]+": "+numberFormat(element.TUTUP[i][2].split(".")[0])+" <input type=checkbox></small><br>";
 	i++
 }
+list += "<hr><b> Total Besar " + numberFormat(TutupBesar) + " </b><br>"
+list += "<b> Total Kecil " + numberFormat(TutupKecil) + " </b><br>"
 list += "<b> Grand Total " + numberFormat(TotalTutup) + " </b> "
 list += "<h5>FE: " + FeTutup + " <br>Duty: " + DutyTutup + "</h5>"
 list += "</pre>"
