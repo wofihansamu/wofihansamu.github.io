@@ -359,7 +359,7 @@ document.getElementById('stotal').innerHTML = saleVal.toString().replace(/\B(?=(
 function toggleMainButton() {
     const mainButton = Telegram.WebApp.MainButton;
         //Prepare data to send
-        if(selQty !== 0 || selVal !== 0){
+        if((selQty !== 0 || selVal !== 0) && urlParams.get('mode') == 'malam'){
             swal("Stock Fisik dan System tidak Sama","warning","warning")
         }
         var inputdef = document.querySelectorAll("input[type=text]");
