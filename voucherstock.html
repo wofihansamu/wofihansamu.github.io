@@ -206,8 +206,7 @@
 </section>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script type="application/javascript">
 var dataToSend = "";
 var urlParams = new URLSearchParams(window.location.search);
@@ -363,6 +362,9 @@ document.getElementById('stotal').innerHTML = saleVal.toString().replace(/\B(?=(
 function toggleMainButton() {
     const mainButton = Telegram.WebApp.MainButton;
         //Prepare data to send
+        if(selQty !== 0 || selVal !== 0){
+            swal("Stock Fisik dan System tidak Sama","warning","warning")
+        }
         var inputdef = document.querySelectorAll("input[type=text]");
         var collect = "";
         for (var i = 0; i < inputdef.length; i++) {

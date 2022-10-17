@@ -267,6 +267,7 @@ Telegram.WebApp.MainButton
     if(TotalBuka !== TotalTutup){
         document.getElementById("info").innerHTML = "Grand Total Tidak Sama!";
         document.getElementById("info").classList.add("err");
+        swal("Grand Total Tidak Sama!","Warning","warning")
     }
 	Telegram.WebApp.expand();
 })();
