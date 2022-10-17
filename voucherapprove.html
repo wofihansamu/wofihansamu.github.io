@@ -202,8 +202,6 @@ for (let index = 0; index < DataBrankas.length; index++) {
                         DataBrankas[index].field_name,
                         DataBrankas[index].amount
                     ]) 
-                    selisihMalam = malamQty - malamQtySystem
-                    selisihValMalam = malamValue - malamValueSystem
                     FeBuka = DataBrankas[index].fe
                     DutyBuka = DataBrankas[index].duty
 			}else{
@@ -229,7 +227,8 @@ for (let index = 0; index < DataBrankas.length; index++) {
                     DutyTutup = DataBrankas[index].duty 
 			}
 		}
-
+selisihMalam = malamQty - malamQtySystem
+selisihValMalam = malamValue - malamValueSystem
 var i = 0;
 list += "<h2>" + moment(DataBrankas[0].trxdate).format("DD MMM YYYY") + "</h2>";
 list += "<h3>STOCK MALAM</h3>";
@@ -239,10 +238,10 @@ while (i < element.MALAM.length) {
 	i++
 }
 list += "<hr>"
-list += "<b> Total Qty " + numberFormat(selisihMalam) + " </b><br>"
-list += "<b> Total Value " + numberFormat(selisihValMalam) + " </b><br>"
-list += "<b> Selisih Qty " + numberFormat(malamQty) + " </b><br>"
-list += "<b> Selisih Value " + numberFormat(malamValue) + " </b> "
+list += "<b> Total Qty " + numberFormat(malamQty) + " </b><br>"
+list += "<b> Total Value " + numberFormat(malamValue) + " </b><br>"
+list += "<b> Selisih Qty " + numberFormat(selisihMalam) + " </b><br>"
+list += "<b> Selisih Value " + numberFormat(selisihValMalam) + " </b> "
 list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
 list += "</pre>"
 i = 0;
