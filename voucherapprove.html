@@ -191,10 +191,10 @@ for (let index = 0; index < DataBrankas.length; index++) {
                     malamValue = malamValue + (DataBrankas[index].amount * nominal)
                 }
                 if(DataBrankas[index].parent_field == 'Sistem Qty'){
-                    malamQtySystem = malamQtySystem + DataBrankas[index].amount*1
+                    malamQtySystem = DataBrankas[index].amount*1
                 }
                 if(DataBrankas[index].parent_field == 'Sistem Value'){
-                    malamValueSystem = malamValueSystem + DataBrankas[index].amount*1
+                    malamValueSystem = DataBrankas[index].amount*1
                 }
 
 					element.MALAM.push([
@@ -211,10 +211,10 @@ for (let index = 0; index < DataBrankas.length; index++) {
                     pagiValue = pagiValue + (DataBrankas[index].amount * nominal)
                 }
                 if(DataBrankas[index].parent_field == 'Sistem Qty'){
-                    pagiQtySystem = pagiQtySystem + DataBrankas[index].amount*1
+                    pagiQtySystem = DataBrankas[index].amount*1
                 }
                 if(DataBrankas[index].parent_field == 'Sistem Value'){
-                    pagiValueSystem = pagiValueSystem + DataBrankas[index].amount*1
+                    pagiValueSystem = DataBrankas[index].amount*1
                 }
                 element.PAGI.push([
                         DataBrankas[index].parent_field,
