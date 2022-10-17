@@ -210,10 +210,10 @@ for (let index = 0; index < DataBrankas.length; index++) {
 
 var i = 0;
 list += "<h2>" + moment(DataBrankas[0].trxdate).format("DD MMM YYYY") + "</h2>";
-list += "<h3>BUKA BRANKAS</h3>";
+list += "<h3>STOCK MALAM</h3>";
 list += "<pre>";
-while (i < element.BUKA.length) {
-    list += "<small><b>"+element.BUKA[i][0]+"</b> "+element.BUKA[i][1]+": "+numberFormat(element.BUKA[i][2].split(".")[0])+" <input type=checkbox></small><br>";
+while (i < element.MALAM.length) {
+    list += "<small><b>"+element.MALAM[i][0]+"</b> "+element.MALAM[i][1]+": "+numberFormat(element.MALAM[i][2].split(".")[0])+" <input type=checkbox></small><br>";
 	i++
 }
 list += "<hr><b> Total Besar " + numberFormat(BukaBesar) + " </b><br>"
@@ -222,10 +222,10 @@ list += "<b> Grand Total " + numberFormat(TotalBuka) + " </b> "
 list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
 list += "</pre>"
 i = 0;
-list += "<h3>TUTUP BRANKAS</h3>";
+list += "<h3>STOCK PAGI</h3>";
 list += "<pre>";
-while (i < element.TUTUP.length) {
-    list += "<small><b>"+element.TUTUP[i][0]+"</b> "+element.TUTUP[i][1]+": "+numberFormat(element.TUTUP[i][2].split(".")[0])+" <input type=checkbox></small><br>";
+while (i < element.PAGI.length) {
+    list += "<small><b>"+element.PAGI[i][0]+"</b> "+element.PAGI[i][1]+": "+numberFormat(element.PAGI[i][2].split(".")[0])+" <input type=checkbox></small><br>";
 	i++
 }
 list += "<hr><b> Total Besar " + numberFormat(TutupBesar) + " </b><br>"
