@@ -169,40 +169,62 @@ let FeBuka;
 let DutyBuka;
 let FeTutup;
 let DutyTutup;
-let BukaBesar = 0;
-let BukaKecil = 0;
+let malamQty = 0;
+let malamValue = 0;
+let malamQtySystem = 0;
+let malamValueSystem = 0;
+let selisihMalam = 0;
+let selisihValMalam = 0;
 
-let TotalBuka = 0;
-let TutupBesar = 0;
-let TutupKecil = 0;
-let TotalTutup = 0;
+let pagiQty = 0;
+let pagiValue = 0;
+let pagiQtySystem = 0;
+let pagiValueSystem = 0;
+let selisihPagi = 0;
+let selisihValPagi = 0;
+let nominal
 for (let index = 0; index < DataBrankas.length; index++) {
 			if(DataBrankas[index].shift == 'MALAM'){
                 if(DataBrankas[index].parent_field == 'Voucher Fisik'){
-                    BukaBesar = BukaBesar + DataBrankas[index].amount*1
-                }else{
-                    BukaKecil = BukaKecil + DataBrankas[index].amount*1
+                    malamQty = malamQty + DataBrankas[index].amount*1
+                    nominal = DataBrankas[index].field_name.replace("k","")*1000
+                    malamValue = malamValue + (DataBrankas[index].amount * nominal)
                 }
+                if(DataBrankas[index].parent_field == 'Sistem Qty'){
+                    malamQtySystem = malamQtySystem + DataBrankas[index].amount*1
+                }
+                if(DataBrankas[index].parent_field == 'Sistem Value'){
+                    malamValueSystem = malamValueSystem + DataBrankas[index].amount*1
+                }
+
 					element.MALAM.push([
                         DataBrankas[index].parent_field,
                         DataBrankas[index].field_name,
                         DataBrankas[index].amount
                     ]) 
-                    TotalBuka = TotalBuka + DataBrankas[index].amount*1
+                    selisihMalam = malamQty - malamQtySystem
+                    selisihValMalam = malamValue - malamValueSystem
                     FeBuka = DataBrankas[index].fe
                     DutyBuka = DataBrankas[index].duty
 			}else{
                 if(DataBrankas[index].parent_field == 'Voucher Fisik'){
-                    TutupBesar = TutupBesar + DataBrankas[index].amount*1
-                }else{
-                    TutupKecil = TutupKecil + DataBrankas[index].amount*1
+                    pagiQty = pagiQty + DataBrankas[index].amount*1
+                    nominal = DataBrankas[index].field_name.replace("k","")*1000
+                    pagiValue = pagiValue + (DataBrankas[index].amount * nominal)
+                }
+                if(DataBrankas[index].parent_field == 'Sistem Qty'){
+                    pagiQtySystem = pagiQtySystem + DataBrankas[index].amount*1
+                }
+                if(DataBrankas[index].parent_field == 'Sistem Value'){
+                    pagiValueSystem = pagiValueSystem + DataBrankas[index].amount*1
                 }
                 element.PAGI.push([
                         DataBrankas[index].parent_field,
                         DataBrankas[index].field_name,
                         DataBrankas[index].amount
                     ])
-                    TotalTutup = TotalTutup + DataBrankas[index].amount*1
+                    selisihPagi = pagiQty - pagiQtySystem
+                    selisihValPagi = malamValue - malamValueSystem
                     FeTutup = DataBrankas[index].fe
                     DutyTutup = DataBrankas[index].duty 
 			}
@@ -216,9 +238,9 @@ while (i < element.MALAM.length) {
     list += "<small><b>"+element.MALAM[i][0]+"</b> "+element.MALAM[i][1]+": "+numberFormat(element.MALAM[i][2].split(".")[0])+" <input type=checkbox></small><br>";
 	i++
 }
-list += "<hr><b> Total Besar " + numberFormat(BukaBesar) + " </b><br>"
-list += "<b> Total Kecil " + numberFormat(BukaKecil) + " </b><br>"
-list += "<b> Grand Total " + numberFormat(TotalBuka) + " </b> "
+list += "<hr>"
+list += "<b> Selisih Qty " + numberFormat(selisihMalam) + " </b><br>"
+list += "<b> Selisih Value " + numberFormat(selisihValMalam) + " </b> "
 list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
 list += "</pre>"
 i = 0;
@@ -228,9 +250,9 @@ while (i < element.PAGI.length) {
     list += "<small><b>"+element.PAGI[i][0]+"</b> "+element.PAGI[i][1]+": "+numberFormat(element.PAGI[i][2].split(".")[0])+" <input type=checkbox></small><br>";
 	i++
 }
-list += "<hr><b> Total Besar " + numberFormat(TutupBesar) + " </b><br>"
-list += "<b> Total Kecil " + numberFormat(TutupKecil) + " </b><br>"
-list += "<b> Grand Total " + numberFormat(TotalTutup) + " </b> "
+list += "<hr>>"
+list += "<b> Selisih Qty " + numberFormat(selisihPagi) + " </b><br>"
+list += "<b> Selisih Value " + numberFormat(selisihValPagi) + " </b> "
 list += "<h5>FE: " + FeTutup + " <br>Duty: " + DutyTutup + "</h5>"
 list += "</pre>"
 
@@ -265,10 +287,10 @@ Telegram.WebApp.MainButton
 
 (function() {
 	document.getElementById("section").innerHTML = list;
-    if(TotalBuka !== TotalTutup){
-        document.getElementById("info").innerHTML = "Grand Total Tidak Sama!";
+    if(selisihMalam !== selisihPagi || selisihValMalam !== selisihValPagi){
+        document.getElementById("info").innerHTML = "Selisih Voucher Tidak Sama!";
         document.getElementById("info").classList.add("err");
-        swal("Grand Total Tidak Sama!","Warning","warning")
+        swal("Selisih Voucher Tidak Sama!","Warning","warning")
     }
 	Telegram.WebApp.expand();
 })();
