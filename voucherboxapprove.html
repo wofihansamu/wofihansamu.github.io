@@ -243,6 +243,7 @@ list += "<b> Selisih Value " + numberFormat(selisihValMalam) + " </b> "
 list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
 list += "</pre>"
 i = 0;
+list += "<h2>" + moment(DataBrankas[DataBrankas.length].trxdate).format("DD MMM YYYY") + "</h2>";
 list += "<h3>STOCK PAGI</h3>";
 list += "<pre>";
 while (i < element.PAGI.length) {
