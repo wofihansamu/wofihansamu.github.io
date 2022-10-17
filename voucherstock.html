@@ -387,7 +387,7 @@ function toggleMainButton() {
     dateElem.appendChild(opt1);
     dateElem.appendChild(opt2);
 
-    if(urlParams.get('mode').toUpperCase() == 'PAGI'){
+    if(urlParams.get('mode') == 'pagi'){
         document.getElementById("shift").style.display = 'none';
     }
     document.getElementById("shift").innerHTML = urlParams.get('mode').toUpperCase();
