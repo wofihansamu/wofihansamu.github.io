@@ -164,12 +164,12 @@
         <tr><th>Nominal</th><th>Qty</th><th>Value</th></tr>
         
         <tr><th colspan="3" >FISIK VOUCHER</th></tr>
-        <tr><td style="text-align: right;">100,000</td><td style="width: 90px;"><input id="v1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><div id="v1a">5,000,000</div></td></tr>
+        <tr><td style="text-align: right;">100,000</td><td style="width: 90px;"><input id="v1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><div id="v1a">0</div></td></tr>
         <tr><td style="text-align: right;">50,000</td><td><input id="v2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v2a">0</div></td></tr>
         <tr><td style="text-align: right;">25,000</td><td><input id="v3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v3a">0</div></td></tr>
         <tr><td style="text-align: right;">10,000</td><td><input id="v4" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v4a">0</div></td></tr>
         <tr><td><div><b>Total</b></div></td><td><div id="vqty">0</div></td><td> <div id="vtotal">0</div></td></tr>
-        
+        <div id="malam">
         <tr><th colspan="3">PENERIMAAN VOUCHER</th></tr>
         <tr><td style="text-align: right;">100,000</td><td><input id="p1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p1a">0</div></td></tr>
         <tr><td style="text-align: right;">50,000</td><td><input id="p2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p2a">0</div></td></tr>
@@ -181,16 +181,16 @@
         <tr><td style="text-align: right;">CUSTOMER</td><td><input id="s1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><input id="s3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">PROMOSI</td><td><input id="s2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><input id="s4" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td><div><b>Total</b></div></td><td><div id="sqty">0</div></td><td> <div id="stotal">0</div></td></tr>
-
+        </div>
         <tr><th colspan="3">STOCK VOUCHER</th></tr>
-        <tr><td style="text-align: right;">FISIK</td><td><div id="vqty">0</div></td><td> <div id="vtotal">0</div></td></tr>
+        <tr><td style="text-align: right;">FISIK</td><td><div id="vqty2">0</div></td><td> <div id="vtotal2">0</div></td></tr>
         <tr><td style="text-align: right;">SISTEM</td><td><input id="m1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><input id="m2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">SELISIH</td><td><div id="mqty">0</div></td><td> <div id="mtotal">0</div></td></tr>
 	</table>
     <small>
             <div style="display: flex;
             background-color:  var(--tg-theme-button-color, rgb(240,248,255)) ;
-            color: var(--tg-theme-button-text-color, #ffffff);
+            color: var(--tg-theme-button-text-color, #000000);
             border-radius: 4px;
             padding: 4px;
             text-align: center;
@@ -227,64 +227,135 @@ function defautlform(e){
         e.value = formating;
 }
 
+
+let q100 = 0;
+let q50 = 0;
+let q25 = 0;
+let q10 = 0;
+let v100 = 0;
+let v50 = 0;
+let v25 = 0;
+let v10 = 0;
+let Tqty = 0;
+let Tval = 0;
+let pq100 = 0;
+let pq50 = 0;
+let pq25 = 0;
+let pq10 = 0;
+let pv100 = 0;
+let pv50 = 0;
+let pv25 = 0;
+let pv10 = 0;
+let pTqty = 0;
+let pTval = 0;
+let selQty = 0;
+let selVal = 0;
+let sisQty = 0;
+let sisVal = 0;
+let cusQty = 0;
+let cusVal = 0;
+let proQty = 0;
+let proVal = 0;
+let saleQty = 0;
+let saleVal = 0;
 function nformat(e){
-    var inputdef = document.querySelectorAll("input[type=text]");
-    for (var i = 0; i < inputdef.length; i++) {
-        var val = inputdef[i].value;
-        var formating = val.replaceAll(",","");
-        inputdef[i].type = 'number'
-        inputdef[i].value = formating;
-    }
-    sumAll()
-    var input = document.querySelectorAll("input[type=number]");
-    for (var i = 0; i < input.length; i++) {
-        var val = input[i].value;
+    var val = e.value;
+    let nominal
+        if(e.id == 'v1' ){
+            q100 = val*1
+            nominal = val*100000
+            v100 = nominal
+            document.getElementById("v1a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'v2' ){
+            q50 = val*1
+            nominal = val*50000
+            v50 = nominal
+            document.getElementById("v2a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'v3' ){
+            q25 = val*1
+            nominal = val*25000
+            v25 = nominal
+            document.getElementById("v3a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'v4' ){
+            q10 = val*1
+            nominal = val*10000
+            v10 = nominal
+            document.getElementById("v4a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+
+
+        if(e.id == 'p1' ){
+            nominal = val*100000
+            pv100 = nominal
+            pq100 = val*1
+            document.getElementById("p1a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'p2' ){
+            nominal = val*50000
+            pv50 = nominal
+            pq50 = val*1
+            document.getElementById("p2a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'p3' ){
+            nominal = val*25000
+            pv25 = nominal
+            pq25 = val*1
+            document.getElementById("p3a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'p4' ){
+            nominal = val*10000
+            pv10 = nominal
+            pq10 = val*1
+            document.getElementById("p4a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'm1' ){
+            sisQty = val*1
+        }
+        if(e.id == 'm2' ){
+            sisVal = val*1
+        }
+        if(e.id == 's1' ){
+            cusQty = val*1
+        }
+        if(e.id == 's3' ){
+            cusVal = val*1
+        }
+        if(e.id == 's2' ){
+            proQty = val*1
+        }
+        if(e.id == 's4' ){
+            proVal = val*1
+        }
         var formating = val.replace(/\B(?=(\d{3})+(?!\d))/g,",");
-        input[i].type = 'text'
-        input[i].value = formating;
-    }
-    hideButton()
+        e.type = 'text'
+        e.value = formating;
+    sumAll();
+    hideButton();
 }
 
 function sumAll(){
-    var fisik = 0;
-    var stockin = 0;
-    var stockout = 0;
-    var system = 0;
-    var ll = document.querySelectorAll("input[type=number]");
-    for (let index = 0; index < 30; index++) {
-
-        gtotal = gtotal + ll[index].value*1;
-    }
-    document.getElementById("ktotal").innerHTML = nFormat(dt);
-}
-
-function getNominal(code){
-    let nominal = 1;
-    switch (code) {
-        case 'v1':
-        case 'p1':
-            nominal = 100000;
-            break;
-        case 'v2':
-        case 'p2':
-            nominal = 50000;
-            break;
-        case 'v3':
-        case 'p3':
-            nominal = 25000;
-            break;
-        case 'v4':
-        case 'p4':
-            nominal = 10000;
-            break;
-
-    }
-    return nominal;
-}
-
-function nFormat(str){
-    return str.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+    Tqty = q10 + q25 + q50 + q100;
+    Tval = v10 + v25 + v50 + v100;
+    pTval = pv10 + pv25 + pv50 + pv100;
+    pTqty = pq10 + pq25 + pq50 + pq100;
+    saleQty = cusQty + proQty;
+    saleVal = cusVal + proVal;
+    //Selisih
+    selQty = Tqty - sisQty;
+    selVal = Tval - sisVal;
+document.getElementById('vqty').innerHTML = Tqty.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('vqty2').innerHTML = Tqty.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('vtotal').innerHTML = Tval.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('vtotal2').innerHTML = Tval.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('ptotal').innerHTML = pTval.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('pqty').innerHTML = pTqty.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('mqty').innerHTML = selQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('mtotal').innerHTML = selVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('sqty').innerHTML = saleQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+document.getElementById('stotal').innerHTML = saleVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
 }
 
 function toggleMainButton() {
@@ -295,7 +366,7 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+'@' + collect
+        dataToSend = 'voucher:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
@@ -316,6 +387,9 @@ function toggleMainButton() {
     dateElem.appendChild(opt1);
     dateElem.appendChild(opt2);
 
+    if(urlParams.get('mode').toUpperCase() == 'PAGI'){
+        document.getElementById("shift").style.display = 'none';
+    }
     document.getElementById("shift").innerHTML = urlParams.get('mode').toUpperCase();
     document.getElementById("fe").innerHTML = urlParams.get('fe').toUpperCase();
     document.getElementById("duty").innerHTML = urlParams.get('duty').toUpperCase();
