@@ -273,14 +273,14 @@ Telegram.WebApp.MainButton
             }
         }
         if(checked === DataBrankas.length){
-            dataToSend = 'brankas:'+moment(DataBrankas[0].trxdate).format("YYYY-MM-DD")
+            dataToSend = 'voucher:'+moment(DataBrankas[0].trxdate).format("YYYY-MM-DD")
                 mainButton.setParams({
                     text: 'Approve', 
                     is_visible : true, 
                     is_active: true
             });
         }else{
-            swal("Semua Stock Brankas Harus di Check List","Error","error")
+            swal("Semua Stock Voucher Harus di Check List","Error","error")
         }
 }
 
