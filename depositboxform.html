@@ -207,30 +207,30 @@
                 <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br><span id="duty"></span><br><b>Petugas Buka Brankas</b></div>
             </div>
     </small>
-    <p id="location"></p>
+    <div id="location"></div>
     <button id="btnTime" onclick="toggleMainButton()">Submit</button>
 </section>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="application/javascript">
 var dataToSend = "";
+var loc = "";
+var x = document.getElementById("location");
 var urlParams = new URLSearchParams(window.location.search);
-var x = document.getElementById("location")
-var location = "";
 Telegram.WebApp.ready();
 Telegram.WebApp.MainButton
     .onClick(function(){ 
+        
         Telegram.WebApp.sendData(dataToSend);
         Telegram.WebApp.close();
     });
-
+    
 function hideButton(){
     Telegram.WebApp.MainButton.hide()
 }
 
 function defautlform(e){
+    
         var val = e.value;
         var formating = val.replaceAll(",","");
         e.type = 'number'
@@ -238,6 +238,7 @@ function defautlform(e){
 }
 
 function nformat(e){
+    
     var inputdef = document.querySelectorAll("input[type=text]");
     for (var i = 0; i < inputdef.length; i++) {
         var val = inputdef[i].value;
@@ -257,6 +258,7 @@ function nformat(e){
 }
 
 function sumkecil(){
+    
     var ll = document.querySelectorAll("input[type=number]");
     var gtotal = 0;
     for (let index = 15; index < 31; index++) {
@@ -267,6 +269,7 @@ function sumkecil(){
     return gtotal;
 }
 function sumbesar(){
+    
     var ll = document.querySelectorAll("input[type=number]");
     var gtotal = 0;
     for (let index = 0; index < 15; index++) {
@@ -277,6 +280,7 @@ function sumbesar(){
     return gtotal;
 }
 function sumAll(){
+    
     var kecil = sumkecil();
     var besar = sumbesar();
     var gtotal = kecil + besar;
@@ -285,6 +289,7 @@ function sumAll(){
 }
 
 function toggleMainButton() {
+    
     const mainButton = Telegram.WebApp.MainButton;
         //Prepare data to send
         var inputdef = document.querySelectorAll("input[type=text]");
@@ -292,7 +297,7 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+":"+location+'@' + collect
+        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+":"+loc+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
@@ -309,9 +314,8 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    location = position.coords.latitude + "," + position.coords.longitude;
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
+    loc = position.coords.latitude + "," + position.coords.longitude;
+    x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude;
 }
 
 (function() {
@@ -331,7 +335,9 @@ function showPosition(position) {
     document.getElementById("fe").innerHTML = urlParams.get('fe').toUpperCase();
     document.getElementById("duty").innerHTML = urlParams.get('duty').toUpperCase();
 	Telegram.WebApp.expand();
+    
 })();
+
 </script>
 </body>
 </html>
