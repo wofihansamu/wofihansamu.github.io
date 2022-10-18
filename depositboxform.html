@@ -207,7 +207,7 @@
                 <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br><span id="duty"></span><br><b>Petugas Buka Brankas</b></div>
             </div>
     </small>
-    
+    <p id="location"></p>
     <button id="btnTime" onclick="toggleMainButton()">Submit</button>
 </section>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -217,6 +217,8 @@
 <script type="application/javascript">
 var dataToSend = "";
 var urlParams = new URLSearchParams(window.location.search);
+var x = document.getElementById("location")
+var location = "";
 Telegram.WebApp.ready();
 Telegram.WebApp.MainButton
     .onClick(function(){ 
@@ -290,7 +292,7 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+'@' + collect
+        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+":"+location+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
@@ -298,8 +300,22 @@ function toggleMainButton() {
     });
 }
 
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported.";
+  }
+}
+
+function showPosition(position) {
+    location = position.coords.latitude + "," + position.coords.longitude;
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
 
 (function() {
+    getLocation();
     var dateElem = document.getElementById("date");
     dateElem.value = moment().format('DD-MMM-YYYY');
     var opt1 = document.createElement('option');
