@@ -161,7 +161,7 @@ function numberFormat(num){
 }
 var urlParams = new URLSearchParams(window.location.search);
 var myParam = urlParams.get('data');
-var defaultBrankas = urlParams.get('default');
+var defaultBrankas = urlParams.get('default')*1;
 var DataBrankas = JSON.parse(atob(myParam));
 var list = "";
 let element = {BUKA:[],TUTUP:[]}
@@ -270,10 +270,10 @@ Telegram.WebApp.MainButton
         document.getElementById("info").classList.add("err");
         swal("Grand Total Tidak Sama!","Warning","warning")
     }
-    if(defaultBrankas !== TotalTutup){
+    if(defaultBrankas !== TotalTutup || defaultBrankas !== TotalBuka){
         document.getElementById("info").innerHTML = "Total Fisik Brankas dan Default Nilai Brankas tidak sama!";
         document.getElementById("info").classList.add("err");
-        swal("Total Fisik Brankas dan Default Nilai Brankas tidak sama!","Warning","warning")
+        swal("Total Fisik Brankas dan Default Nilai Brankas ["+defaultBrankas+"] tidak sama!","Warning","warning")
     }
 	Telegram.WebApp.expand();
 })();
