@@ -161,7 +161,7 @@ function numberFormat(num){
 }
 var urlParams = new URLSearchParams(window.location.search);
 var myParam = urlParams.get('data');
-var defaultBrankas = urlParams.get('default')*1;
+var defaultBrankas = Math.floor(urlParams.get('default'));
 var DataBrankas = JSON.parse(atob(myParam));
 var list = "";
 let element = {BUKA:[],TUTUP:[]}
