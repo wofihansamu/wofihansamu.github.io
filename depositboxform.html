@@ -151,7 +151,7 @@
     </style>
 </head>
 <body>
-<section>
+<section id="section" style="display: none;">
     <small>FORM / 2022 / BRANKAS / 0.1 / BOT</small>
     <h1 id="greeting">STOCK BRANKAS HARIAN</h1>
     <h4 ><select name="date" id="date">
@@ -314,8 +314,11 @@ function getLocation() {
 }
 
 function showPosition(position) {
+    var sect = document.getElementById("section");
+    sect.style.display = "block";
     loc = position.coords.latitude + "," + position.coords.longitude;
     x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude;
+
 }
 
 (function() {
