@@ -236,7 +236,7 @@ Telegram.WebApp.MainButton
                 checked++;
             }
         }
-        if(checked === DataBrankas.length){
+        if(checked === element.data.length){
             dataToSend = 'brankas:'+moment(element.trxdate).format("YYYY-MM-DD")
                 mainButton.setParams({
                     text: 'Approve', 
