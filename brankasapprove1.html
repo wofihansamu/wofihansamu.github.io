@@ -177,20 +177,20 @@ let TutupKecil = 0;
 let TotalTutup = 0;
 
 for (const buka of element.BUKA) {
-    if(buka.parent_field == 'Brankas Besar'){
-            BukaBesar = BukaBesar + buka.amount*1
+    if(buka[0] == 'Brankas Besar'){
+            BukaBesar = BukaBesar + buka[2]*1
         }else{
-            BukaKecil = BukaKecil + buka.amount*1
+            BukaKecil = BukaKecil + buka[2]*1
     }
-    TotalBuka = TotalBuka + buka.amount*1
+    TotalBuka = TotalBuka + buka[2]*1
 }
 for (const tutup of element.TUTUP) {
-    if(tutup.parent_field == 'Brankas Besar'){
-        TutupBesar = TutupBesar + tutup.amount*1
+    if(tutup[0] == 'Brankas Besar'){
+        TutupBesar = TutupBesar + tutup[2]*1
     }else{
-        TutupKecil = TutupKecil + tutup.amount*1
+        TutupKecil = TutupKecil + tutup[2]*1
     }
-    TotalTutup = TotalTutup + tutup.amount*1
+    TotalTutup = TotalTutup + tutup[2]*1
 }
 
 var i = 0;
