@@ -155,7 +155,7 @@ const cameraOptions = document.querySelector('.video-options>select');
 	
     function changeCam(e){
         let index = e.value;
-        //let idDevice = index === "1" ? devicesList[0].id : devicesList[1].id ;
+        let idDevice = index === "1" ? { facingMode: "environment" } : { facingMode: "user" } ;
         html5QrCode = new Html5Qrcode("reader",  { experimentalFeatures: { useBarCodeDetectorIfSupported: true } } );
         html5QrCode.start(
             { facingMode: "environment" }, 
@@ -184,7 +184,7 @@ docReady(function () {
 						}
 					);
 					html5QrCode.start(
-					  cameraId, 
+					  { facingMode: "environment" }, 
 					  {
 						fps: 10,    
 						qrbox: { width: 250, height: 250 }
