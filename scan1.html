@@ -158,7 +158,7 @@ const cameraOptions = document.querySelector('.video-options>select');
         let idDevice = index === "1" ? { facingMode: "environment" } : { facingMode: "user" } ;
         html5QrCode = new Html5Qrcode("reader",  { experimentalFeatures: { useBarCodeDetectorIfSupported: true } } );
         html5QrCode.start(
-            { facingMode: "environment" }, 
+            idDevice, 
             {
             fps: 10,    
             qrbox: { width: 250, height: 250 }
