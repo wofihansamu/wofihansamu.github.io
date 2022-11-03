@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title></title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        function setThemeClass() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        }
+        Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+        setThemeClass();
+    </script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #222222);
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            color-scheme: var(--tg-color-scheme);
+        }
+
+        a {
+            color: var(--tg-theme-link-color, #2678b6);
+        }
+		
+		input{
+			border-radius: 4px;
+			border-color: var(--tg-theme-button-color, #50a8eb);
+            width: 90px;
+		}
+		
+        button {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--tg-theme-button-color, #50a8eb);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            cursor: pointer;
+        }
+
+        button[disabled] {
+            opacity: 0.6;
+            cursor: auto;
+            pointer-events: none;
+        }
+
+        button.close_btn {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0;
+            margin: 0;
+            padding: 16px 20px;
+            text-transform: uppercase;
+        }
+
+        section {
+            padding: 15px 15px 65px;
+            text-align: center;
+        }
+
+        p {
+            margin: 40px 0 15px;
+        }
+
+        ul {
+            text-align: left;
+        }
+
+        li {
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 7px;
+        }
+
+        pre {
+            background: rgb(240,248,255);
+            border-radius: 4px;
+            padding: 4px;
+            margin: 7px 0;
+            word-break: break-all;
+            word-break: break-word;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .dark pre {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .hint {
+            font-size: .8em;
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        .ok {
+            color: green;
+        }
+
+        .err {
+            color: red;
+        }
+
+        #fixed_wrap {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            transform: translateY(100vh);
+        }
+
+        small {
+            font-size: 12px;
+        }
+        th {
+        background-color: var(--tg-theme-button-color, #50a8eb);
+        color: white;
+        text-align: center;
+        }
+        table, th, td {
+        border: 1px solid var(--tg-theme-button-color, #50a8eb);
+        border-collapse: collapse;
+        padding: 4px;
+        }
+        td.truncate {
+        display: inline-block;
+        white-space: nowrap;
+        }
+        table {
+        width: 100%;
+        text-align: left;
+        border-radius: 6px;
+        }
+        tr:hover {
+            background-color: var(--tg-theme-button-color, rgb(147, 198, 243));
+        }
+    </style>
+</head>
+<body>
+<section>
+    <small>FORM / 2022 / TANDA TERIMA / 0.1 / BOT</small>
+    <h1 id="greeting">FORM TANDA TERIMA</h1>
+    <h4 ><input type="text" id="date" disabled></h4>
+	<table>
+        <tr><th colspan="2" >Detail</th></tr>
+        
+        <tr><td style="text-align: right;">Nominal</td><td><input id="value" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
+        <tr><td style="text-align: right;">Keperluan</td><td>
+            <select name="reason" id="reason" onchange="keperluan(this)">
+                <option value="modal">Modal Penjualan</option>
+                <option value="operasional">Operasional</option>
+                <option value="other">Lain-lain</option>
+            </select><textarea id="note" style="display: none;"></textarea>
+        </td></tr>
+        <tr><td style="text-align: right;">Dana</td><td>
+            <select name="reason" id="brankas">
+                <option value="b15">Brankas Besar</option>
+                <option value="k15">Brankas Kecil</option>
+        </td></tr>
+     </table>
+
+    <small>
+            <div style="display: flex;
+            background-color:  var(--tg-theme-button-color, rgb(240,248,255)) ;
+            color: var(--tg-theme-button-text-color, #000000);
+            border-radius: 4px;
+            padding: 4px;
+            text-align: center;
+            margin: 7px 0;">
+                <div style="flex: 50%;"><b>PENYERAH</b><br><br><br><span id="fe"></span><br><b>TL/DM Front End</b></div>
+                <div style="flex: 50%;"><b>DITERIMA OLEH</b><br><br><br><span id="duty"></span><br><b>Staff/Managerial</b></div>
+            </div>
+    </small>
+    
+    <button id="btnTime" onclick="toggleMainButton()">Submit</button>
+</section>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="application/javascript">
+var dataToSend = "";
+var urlParams = new URLSearchParams(window.location.search);
+Telegram.WebApp.ready();
+Telegram.WebApp.MainButton
+    .onClick(function(){ 
+        Telegram.WebApp.sendData(dataToSend);
+        Telegram.WebApp.close();
+    });
+
+function hideButton(){
+    Telegram.WebApp.MainButton.hide()
+}
+function keperluan(e){
+    if(e.value=='other'){
+        document.getElementById("note").style.display = 'block';
+    }else{
+        document.getElementById("note").style.display = 'none';
+        document.getElementById("note").value = '';
+    }
+}
+function defautlform(e){
+        var val = e.value;
+        var formating = val.replaceAll(",","");
+        e.type = 'number'
+        e.value = formating;
+}
+
+function nformat(e){
+    var val = e.value;
+    var formating = val.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+    e.type = 'text'
+    e.value = formating;
+}
+
+
+function toggleMainButton() {
+    const mainButton = Telegram.WebApp.MainButton;
+        //Prepare data to send
+        var nominal = document.getElementById("value").value;
+        var keperluan = document.getElementById("reason").value;
+        var note = document.getElementById("note").value;
+        var brankas = document.getElementById("brankas").value;
+        var collect = brankas + ":" + nominal + ":" + keperluan + ":" + note
+        dataToSend = 'ttd:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+'@' + collect
+        mainButton.setParams({
+            text: 'Send Request', 
+            is_visible : true, 
+            is_active: true
+    });
+}
+
+
+(function() {
+    document.getElementById("date").value = moment().format('DD-MMM-YYYY');
+    document.getElementById("fe").innerHTML = urlParams.get('fe').toUpperCase();
+    document.getElementById("duty").innerHTML = urlParams.get('duty').toUpperCase();
+	Telegram.WebApp.expand();
+})();
+</script>
+</body>
+</html>
