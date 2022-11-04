@@ -334,8 +334,8 @@ function showPosition(position) {
     dateElem.appendChild(opt1);
     dateElem.appendChild(opt2);
 
-    document.getElementById("b15").value = urlParams.get('ttbesar') || '0';
-    document.getElementById("k15").value = urlParams.get('ttkecil') || '0';
+    document.getElementById("b15").value = urlParams.get('ttbesar') || '';
+    document.getElementById("k15").value = urlParams.get('ttkecil') || '';
 
     document.getElementById("shift").innerHTML = urlParams.get('mode').toUpperCase();
     document.getElementById("fe").innerHTML = urlParams.get('fe').toUpperCase();
