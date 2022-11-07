@@ -166,14 +166,17 @@
         <tr><td style="text-align: right;">Keperluan</td><td>
             <select name="reason" id="reason" onchange="keperluan(this)">
                 <option value="Modal Penjualan">Modal Penjualan</option>
-                <option value="Operasional">Operasional</option>
-                <option value="Lain-lain">Lain-lain</option>
-            </select><textarea id="note" style="display: none;"></textarea>
+                <!-- <option value="Operasional">Replenishment Petty Cash</option> -->
+            </select>
+        </td></tr>
+        <tr><td style="text-align: right;">Keterangan</td><td>
+            <textarea id="note" ></textarea>
         </td></tr>
         <tr><td style="text-align: right;">Dana</td><td>
             <select name="reason" id="brankas">
                 <option value="b15">Brankas Besar</option>
                 <option value="k15">Brankas Kecil</option>
+            </select>
         </td></tr>
      </table>
 
@@ -234,17 +237,18 @@ function nformat(e){
 function toggleMainButton() {
     const mainButton = Telegram.WebApp.MainButton;
         //Prepare data to send
-        var nominal = document.getElementById("value").value;
-        var keperluan = document.getElementById("reason").value;
-        var note = document.getElementById("note").value;
-        var brankas = document.getElementById("brankas").value;
+        var nominal = document.getElementById("value").value; //value
+        var keperluan = document.getElementById("reason").value; //reason
+        var note = document.getElementById("note").value; //note
+        var brankas = document.getElementById("brankas").value; //id
         var collect = brankas + ":" + nominal + ":" + keperluan + ":" + note
+        
         dataToSend = 'ttd:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
             is_active: true
-    });
+        });
 }
 
 
