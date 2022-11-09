@@ -243,6 +243,14 @@ function toggleMainButton() {
         var brankas = document.getElementById("brankas").value; //id
         var collect = brankas + ":" + nominal + ":" + keperluan + ":" + note
         
+        if(nominal.length==0 
+        || keperluan.length == 0 
+        || note.length == 0 
+        || brankas.length == 0 
+        ){
+            swal("Semua Kolom Wajib diisi","Error","error")
+            return
+        } 
         dataToSend = 'ttd:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+'@' + collect
         mainButton.setParams({
             text: 'Send Request', 
