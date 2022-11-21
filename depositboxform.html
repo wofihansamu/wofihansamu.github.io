@@ -204,7 +204,7 @@
             text-align: center;
             margin: 7px 0;">
                 <div style="flex: 50%;"><b>PETUGAS SHIFT</b><br><br><br><span id="fe"></span><br><b>TL/DM Front End</b></div>
-                <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br><span id="duty"></span><br><b>Petugas Buka Brankas</b></div>
+                <div style="flex: 50%;"><b>DIKETAHUI</b><br><br><br><span id="duty"></span><br><b>Petugas Buka/Tutup Brankas</b></div>
             </div>
     </small>
     <div id="location"></div>
@@ -309,7 +309,7 @@ function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
-    x.innerHTML = "Geolocation is not supported.";
+    alert("Geolocation is not supported.");
   }
 }
 
