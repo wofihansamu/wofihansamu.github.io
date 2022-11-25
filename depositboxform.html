@@ -321,8 +321,16 @@ function showPosition(position) {
 
 }
 
+function bypassLocation(){
+    var sect = document.getElementById("section");
+    sect.style.display = "block";
+    loc =  "0,0" ;
+    x.innerHTML = "Latitude: 0<br>Longitude:0 ";
+}
+
 (function() {
-    getLocation();
+    //getLocation();
+    bypassLocation();
     var dateElem = document.getElementById("date");
     dateElem.value = moment().format('DD-MMM-YYYY');
     var opt1 = document.createElement('option');
