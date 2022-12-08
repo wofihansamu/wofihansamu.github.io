@@ -172,11 +172,11 @@
         <tr><td style="text-align: right;">200</td><td><input id="b11" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">100</td><td><input id="b12" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">50</td><td><input id="b13" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
-        <tr><td>Campuran</td><td><input id="b14" autocomplete="off" type="text"  onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
+        <tr><td>Campuran</td><td><input id="b14" autocomplete="off" type="text"  onfocus="defautlform(this)" onblur="nformat(this)" disabled></td></tr>
         <tr><td>Tanda Terima</td><td><input id="b15" autocomplete="off" type="text"  onfocus="defautlform(this)" onblur="nformat(this)" disabled></td></tr>
         <tr><td><div><b>Total Brankas</b></div></td><td><div id="btotal">Rp 0</div></td></tr>
         <tr><th colspan="2">BRANKAS KECIL</th></tr>
-        <tr><td>Modal</td><td><input id="k1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
+        <tr><td>Modal</td><td><input id="k1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" disabled></td></tr>
         <tr><td style="text-align: right;">100,000</td><td><input id="k2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">75,000</td><td><input id="k3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">50,000</td><td><input id="k4" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
@@ -189,7 +189,7 @@
         <tr><td style="text-align: right;">200</td><td><input id="k11" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">100</td><td><input id="k12" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td style="text-align: right;">50</td><td><input id="k13" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
-        <tr><td>Campuran</td><td><input id="k14" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
+        <tr><td>Campuran</td><td><input id="k14" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" disabled></td></tr>
         <tr><td>Tanda Terima</td><td><input id="k15" autocomplete="off" type="text"  onfocus="defautlform(this)" onblur="nformat(this)" disabled></td></tr>
         <tr><td>Modal Selisih Kasir</td><td><input id="k16" autocomplete="off" type="text"  onfocus="defautlform(this)" onblur="nformat(this)" required></td></tr>
         <tr><td><div><b>Total Brankas</b></div></td><td><div id="ktotal">Rp 0</div></td></tr>
@@ -341,6 +341,19 @@ function bypassLocation(){
     opt2.innerHTML = moment().subtract(1, 'days').format('DD-MMM-YYYY');
     dateElem.appendChild(opt1);
     dateElem.appendChild(opt2);
+
+    var openDate = urlParams.get('opendate');
+    if(openDate){
+        var myDate = openDate.split("-");
+        for (var trxdate of myDate) {
+            if(trxdate){
+                var opt3 = document.createElement('option');
+                opt3.value = moment(trxdate,'DDMMYY').format('DD-MMM-YYYY');
+                opt3.innerHTML = moment(trxdate,'DDMMYY').format('DD-MMM-YYYY');
+                dateElem.appendChild(opt3);
+            }
+        }
+    }
 
     document.getElementById("b15").value = urlParams.get('ttbesar') || '';
     document.getElementById("k15").value = urlParams.get('ttkecil') || '';

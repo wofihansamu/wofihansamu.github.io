@@ -388,6 +388,19 @@ function toggleMainButton() {
     dateElem.appendChild(opt1);
     dateElem.appendChild(opt2);
 
+    var openDate = urlParams.get('opendate');
+    if(openDate){
+        var myDate = openDate.split("-");
+        for (var trxdate of myDate) {
+            if(trxdate){
+                var opt3 = document.createElement('option');
+                opt3.value = moment(trxdate,'DDMMYY').format('DD-MMM-YYYY');
+                opt3.innerHTML = moment(trxdate,'DDMMYY').format('DD-MMM-YYYY');
+                dateElem.appendChild(opt3);
+            }
+        }
+    }
+
     if(urlParams.get('mode') == 'pagi'){
         document.getElementById("malam").style.display = 'none';
     }
