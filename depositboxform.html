@@ -195,6 +195,15 @@
         <tr><td><div><b>Total Brankas</b></div></td><td><div id="ktotal">Rp 0</div></td></tr>
         <tr><td><div><b>Grand Total</b></div></td><td><div id="grandtotal">Rp 0</div></td></tr>
 	</table>
+    <div style="display: flex;
+    background-color:  var(--tg-theme-button-color, rgb(240,248,255)) ;
+    color: var(--tg-theme-button-text-color, #ffffff);
+    border-radius: 4px;
+    padding: 4px;
+    text-align: left;
+    margin: 7px 0;"> Catatan Khusus : </div>
+
+    <textarea name="note" id="note" cols="30" rows="10" maxlength="150"></textarea>
     <small>
             <div style="display: flex;
             background-color:  var(--tg-theme-button-color, rgb(240,248,255)) ;
@@ -297,7 +306,8 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+":"+loc+'@' + collect
+        var note = document.getElementById("note").value
+        dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+":"+loc+'@' + collect + '@' + note
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
