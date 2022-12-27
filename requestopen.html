@@ -139,7 +139,7 @@
 </head>
 <body>
 <section>
-    <h3 id="greeting">Permintaan Persetujuan</h3>
+    <h3 id="greeting">Form Permintaan Persetujuan</h3>
     <div id="buttons" >
 	<table class="table">
 	<tr><td style="text-align: right;">Kode Toko </td><td><input class="form-control" type="number" name="store" id="store" disabled></td></tr>
@@ -156,7 +156,7 @@
         <div class="input-group date">
             <input type="text" class="form-control" id="event" required>
             <div class="input-group-addon">
-                <span class="glyphicon glyphicon-th"></span>
+                <span class="glyphicon glyphicon-calendar"></span>
             </div>
         </div>
     </td></tr>
@@ -192,12 +192,15 @@ function toggleMainButton() {
     let date = document.getElementById("event").value.trim()
     if(req == "0"){
         swal("Pilih Permintaan",'','info')
+        return
     }
-    if(note.length<=0){
+    if(note.length<=4){
         swal("Isi Keterangan",'','info')
+        return
     }
     if(date.length<=0){
         swal("Pilih Tanggal",'','info')
+        return
     }
     const mainButton = Telegram.WebApp.MainButton;
         dataToSend = store+';'+req+';'+note+';'+date;
