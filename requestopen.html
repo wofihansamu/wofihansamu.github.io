@@ -203,7 +203,7 @@ function toggleMainButton() {
         return
     }
     const mainButton = Telegram.WebApp.MainButton;
-        dataToSend = store+';'+req+';'+note+';'+date;
+        dataToSend = 'reqapp'+';'+store+';'+req+';'+note+';'+date;
         mainButton.setParams({
             text: 'Submit', 
             is_visible : true, 
