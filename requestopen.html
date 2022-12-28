@@ -203,7 +203,7 @@ function toggleMainButton() {
         return
     }
     const mainButton = Telegram.WebApp.MainButton;
-        dataToSend = 'reqapp'+';'+store+';'+req+';'+note+';'+date;
+        dataToSend = 'reqapp'+':'+store+':'+req+':'+note+':'+date;
         mainButton.setParams({
             text: 'Submit', 
             is_visible : true, 
@@ -225,6 +225,7 @@ function keperluan(e){
                 multidate: true, 
                 clearBtn: true,
                 todayHighlight: true,
+                keepEmptyValues: true,
                 disableTouchKeyboard: true,
                 format: 'dd-M-yyyy'
             }).on('changeDate', function(e) {
@@ -246,6 +247,7 @@ function keperluan(e){
                 multidate: false, 
                 clearBtn: true,
                 todayHighlight: true,
+                keepEmptyValues: true,
                 disableTouchKeyboard: true,
                 format: 'dd-M-yyyy'
             }).on('changeDate', function(e) {
