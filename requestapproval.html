@@ -166,7 +166,6 @@
 
 
 <script type="application/javascript">
-var dataToSend = "";
 var urlParams = new URLSearchParams(window.location.search);
 var myParam = urlParams.get('data');
 var role = urlParams.get('role');
@@ -192,14 +191,20 @@ while (i < data.length) {
     list += data[i].req == "p3" ? "<br>Employee ID : " + data[i].employee + "" : "";
     list += "<br>Ket: "+data[i].keterangan+"<br>Tanggal : "+data[i].date+"</small>";
 	if(role=='feho'){
-        list += "<button id='btnTime' onclick='ProcessButton("+data[i].uuid+","+data[i].store+")'>Process</button>"
+        list += "<button id='btnTime' onclick='ProcessButton(\""+data[i].uuid+"\",\""+data[i].store+"\")'>Process</button>"
     }else{
-        list += "<br><b>Note</b> <textarea id='note"+data[i].uuid+"' cols='20' rows='3' maxlength='50'></textarea><button id='btnTime' onclick='ApproveButton("+data[i].uuid+","+data[i].store+")'>Approve</button><button class='button_red' onclick='RejectButton("+data[i].uuid+","+data[i].store+")'>Reject</button>";
+        list += "<br><b>Note</b> <textarea id='note"+data[i].uuid+"' cols='20' rows='3' maxlength='50'></textarea><button id='btnTime' onclick='ApproveButton(\""+data[i].uuid+"\",\""+data[i].store+"\")'>Approve</button><button class='button_red' onclick='RejectButton(\""+data[i].uuid+"\",\""+data[i].store+"\")'>Reject</button>";
     }
     list += "</pre>"
 	i++
 }
-
+var dataToSend = "";
+Telegram.WebApp.ready();
+Telegram.WebApp.MainButton
+    .onClick(function(){ 
+        Telegram.WebApp.sendData(dataToSend);
+        Telegram.WebApp.close();
+    });
 function ProcessButton(doc,store) {
 	var status = 'process';
 	var note = document.getElementById("note"+doc).value;
@@ -236,12 +241,7 @@ function RejectButton(doc,store) {
             is_active: true
     });
 }
-Telegram.WebApp.ready();
-Telegram.WebApp.MainButton
-    .onClick(function(){ 
-        Telegram.WebApp.sendData(dataToSend);
-        Telegram.WebApp.close();
-    });
+
 function hideButton(){
     document.getElementById('btnTime').style.display = "none";
     Telegram.WebApp.MainButton.hide()
