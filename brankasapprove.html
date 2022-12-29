@@ -152,6 +152,15 @@
     <div class="hint" id="title"></div>
     <div id="section" ></div>
     <div id="info" ></div>
+    <div style="display: flex;
+    background-color:  var(--tg-theme-button-color, rgb(240,248,255)) ;
+    color: var(--tg-theme-button-text-color, #ffffff);
+    border-radius: 4px;
+    padding: 4px;
+    text-align: left;
+    margin: 7px 0;"> Catatan Approver : </div>
+
+    <textarea name="note" id="note" cols="30" rows="10" maxlength="150"></textarea> 
 </section>
 <button id="btnTime" onclick="toggleMainButton()">Submit</button>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -237,7 +246,8 @@ Telegram.WebApp.MainButton
             }
         }
         if(checked === element.BUKA.length + element.TUTUP.length){
-            dataToSend = 'brankas:'+moment(element.trxdate).format("YYYY-MM-DD")
+            var note = document.getElementById("note").value
+            dataToSend = 'brankas:'+moment(element.trxdate).format("YYYY-MM-DD")+":"+note
                 mainButton.setParams({
                     text: 'Approve', 
                     is_visible : true, 
