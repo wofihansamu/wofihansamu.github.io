@@ -55,7 +55,18 @@
             color: var(--tg-theme-button-text-color, #ffffff);
             cursor: pointer;
         }
-
+        .button_red {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #e3495b;
+            color: var(--tg-theme-button-text-color, #ffffff);
+            cursor: pointer;
+        }
         button[disabled] {
             opacity: 0.6;
             cursor: auto;
@@ -176,13 +187,14 @@ while (i < data.length) {
             break;
     }
     list += "<pre>";
-    list += "<small>Store: "+data[i].store+"-"+data[i].store_name;
-    list += "<br>Req: "+requestion+" " + data[i].employee;
+    list += "<small>Store: <b>"+data[i].store+"-"+data[i].store_name+"</b>";
+    list += "<br>Req: <b>"+requestion+"</b> " ;
+    list += data[i].req == "p3" ? "<br>Employee ID : " + data[i].employee + "" : "";
     list += "<br>Ket: "+data[i].keterangan+"<br>Tanggal : "+data[i].date+"</small>";
 	if(role=='feho'){
         list += "<button id='btnTime' onclick='ProcessButton("+data[i].uuid+","+data[i].store+")'>Process</button>"
     }else{
-        list += "<textarea id='note"+data[i].uuid+"' cols='30' rows='10' maxlength='50'></textarea><button id='btnTime' onclick='ApproveButton("+data[i].uuid+","+data[i].store+")'>Approve</button><button class='button_red' onclick='RejectButton("+data[i].uuid+","+data[i].store+")'>Reject</button>";
+        list += "<br><b>Note</b> <textarea id='note"+data[i].uuid+"' cols='20' rows='3' maxlength='50'></textarea><button id='btnTime' onclick='ApproveButton("+data[i].uuid+","+data[i].store+")'>Approve</button><button class='button_red' onclick='RejectButton("+data[i].uuid+","+data[i].store+")'>Reject</button>";
     }
     list += "</pre>"
 	i++
