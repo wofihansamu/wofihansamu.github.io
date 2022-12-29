@@ -211,7 +211,7 @@ function ProcessButton(doc,store) {
     const mainButton = Telegram.WebApp.MainButton;
         dataToSend = "req_reg_app;"+doc+";"+status+";"+note;
         mainButton.setParams({
-            text: 'Process - '+store, 
+            text: 'Confirm Process - '+store, 
             is_visible : true, 
 			color: '#0fbf36', 
             is_active: true
@@ -223,7 +223,7 @@ function ApproveButton(doc,store) {
     const mainButton = Telegram.WebApp.MainButton;
         dataToSend = "req_reg_app;"+doc+";"+status+";"+note;
         mainButton.setParams({
-            text: 'Approve - '+store, 
+            text: 'Confirm Approve - '+store, 
             is_visible : true, 
 			color: '#0fbf36', 
             is_active: true
@@ -235,7 +235,7 @@ function RejectButton(doc,store) {
     const mainButton = Telegram.WebApp.MainButton;
         dataToSend = "req_reg_app;"+doc+";"+status+";"+note;
         mainButton.setParams({
-            text: 'Reject - '+store, 
+            text: 'Confirm Reject - '+store, 
             is_visible : true, 
 			color: '#e3495b', 
             is_active: true
