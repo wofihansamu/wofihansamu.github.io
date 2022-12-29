@@ -176,8 +176,10 @@ let element = {MALAM:[],PAGI:[]}
 
 let FeBuka;
 let DutyBuka;
+let NoteBuka;
 let FeTutup;
 let DutyTutup;
+let NoteTutup;
 let malamQty = 0;
 let malamValue = 0;
 let malamQtySystem = 0;
@@ -213,6 +215,7 @@ for (let index = 0; index < DataBrankas.length; index++) {
                     ]) 
                     FeBuka = DataBrankas[index].fe
                     DutyBuka = DataBrankas[index].duty
+                    NoteBuka = DataBrankas[index].note
 			}else{
                 if(DataBrankas[index].parent_field == 'Voucher Fisik'){
                     pagiQty = pagiQty + DataBrankas[index].amount*1
@@ -232,6 +235,7 @@ for (let index = 0; index < DataBrankas.length; index++) {
                     ])
                     FeTutup = DataBrankas[index].fe
                     DutyTutup = DataBrankas[index].duty 
+                    NoteTutup = DataBrankas[index].note
 			}
 		}
 selisihMalam = malamQty - malamQtySystem
@@ -249,7 +253,7 @@ list += "<b> Total Qty " + numberFormat(malamQty) + " </b><br>"
 list += "<b> Total Value " + numberFormat(malamValue) + " </b><br>"
 list += "<b> Selisih Qty " + numberFormat(selisihMalam) + " </b><br>"
 list += "<b> Selisih Value " + numberFormat(selisihValMalam) + " </b> "
-list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
+list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + " <br>Note: " + NoteBuka + "</h5>"
 list += "</pre>"
 i = 0;
 list += "<h2>" + moment(DataBrankas[DataBrankas.length-1].trxdate).format("DD MMM YYYY") + "</h2>";
@@ -262,7 +266,7 @@ while (i < element.PAGI.length) {
 list += "<hr>"
 list += "<b> Total Qty " + numberFormat(pagiQty) + " </b><br>"
 list += "<b> Total Value " + numberFormat(pagiValue) + " </b> "
-list += "<h5>FE: " + FeTutup + " <br>Duty: " + DutyTutup + "</h5>"
+list += "<h5>FE: " + FeTutup + " <br>Duty: " + DutyTutup + " <br>Note: " + NoteTutup +"</h5>"
 list += "</pre>"
 
 var dataToSend = "";

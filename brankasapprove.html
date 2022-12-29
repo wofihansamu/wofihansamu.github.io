@@ -176,8 +176,10 @@ var list = "";
 
 let FeBuka = element.fe1;
 let DutyBuka = element.duty1;
+let NoteBuka = element.note1;
 let FeTutup = element.fe2;
 let DutyTutup = element.duty2;
+let NoteTutup = element.note2;
 let BukaBesar = 0;
 let BukaKecil = 0;
 let TotalBuka = 0;
@@ -213,7 +215,7 @@ while (i < element.BUKA.length) {
 list += "<hr><b> Total Besar " + numberFormat(BukaBesar) + " </b><br>"
 list += "<b> Total Kecil " + numberFormat(BukaKecil) + " </b><br>"
 list += "<b> Grand Total " + numberFormat(TotalBuka) + " </b> "
-list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + "</h5>"
+list += "<h5>FE: " + FeBuka + " <br>Duty: " + DutyBuka + " <br>Note: " + NoteBuka + "</h5>"
 list += "</pre>"
 i = 0;
 list += "<h3>TUTUP BRANKAS</h3>";
@@ -225,7 +227,7 @@ while (i < element.TUTUP.length) {
 list += "<hr><b> Total Besar " + numberFormat(TutupBesar) + " </b><br>"
 list += "<b> Total Kecil " + numberFormat(TutupKecil) + " </b><br>"
 list += "<b> Grand Total " + numberFormat(TotalTutup) + " </b> "
-list += "<h5>FE: " + FeTutup + " <br>Duty: " + DutyTutup + "</h5>"
+list += "<h5>FE: " + FeTutup + " <br>Duty: " + DutyTutup + " <br>Note: " + NoteTutup + "</h5>"
 list += "</pre>"
 
 var dataToSend = "";
