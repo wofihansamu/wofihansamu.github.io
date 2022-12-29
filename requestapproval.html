@@ -207,7 +207,7 @@ Telegram.WebApp.MainButton
     });
 function ProcessButton(doc,store) {
 	var status = 'process';
-	var note = document.getElementById("note"+doc).value;
+	var note ="";
     const mainButton = Telegram.WebApp.MainButton;
         dataToSend = "req_reg_app;"+doc+";"+status+";"+note;
         mainButton.setParams({
