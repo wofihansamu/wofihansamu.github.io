@@ -188,7 +188,7 @@ while (i < data.length) {
     list += "<pre>";
     list += "<small>Store: <b>"+data[i].store+"-"+data[i].store_name+"</b>";
     list += "<br>Req: <b>"+requestion+"</b> " ;
-    list += data[i].req == "p3" ? "<br>Employee ID : " + data[i].employee + "" : "";
+    list += data[i].req == "p3" ? "<br>Employee ID : " + data[i].employee + "-" + data[i].full_name : "";
     list += "<br>Ket: "+data[i].keterangan+"<br>Tanggal : "+data[i].date+"</small>";
 	if(role=='feho'){
         list += "<button id='btnTime' onclick='ProcessButton(\""+data[i].uuid+"\",\""+data[i].store+"\")'>Process</button>"
