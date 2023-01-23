@@ -229,7 +229,8 @@ function hideButton(){
 
 function defautlform(e){
         var val = e.value;
-        var formating = val.replaceAll(",","");
+        // var formating = val.replaceAll(",","");
+        var formating = val.replace(/,/g, "");
         e.type = 'number'
         e.value = formating;
 }

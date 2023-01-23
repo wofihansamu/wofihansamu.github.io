@@ -239,19 +239,19 @@ function hideButton(){
 }
 
 function defautlform(e){
-    
         var val = e.value;
-        var formating = val.replaceAll(",","");
+        // var formating = val.replaceAll(",","");
+        var formating = val.replace(/,/g, "");
         e.type = 'number'
         e.value = formating;
 }
 
 function nformat(e){
-    
     var inputdef = document.querySelectorAll("input[type=text]");
     for (var i = 0; i < inputdef.length; i++) {
         var val = inputdef[i].value;
-        var formating = val.replaceAll(",","");
+        // var formating = val.replaceAll(",","");
+        var formating = val.replace(/,/g, "");
         inputdef[i].type = 'number'
         inputdef[i].value = formating;
     }
