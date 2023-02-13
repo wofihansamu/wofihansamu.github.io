@@ -129,11 +129,34 @@
         small {
             font-size: 12px;
         }
+
+        th {
+        background-color: var(--tg-theme-button-color, #50a8eb);
+        color: white;
+        text-align: center;
+        }
+        table, th, td {
+        border: 1px solid var(--tg-theme-button-color, #50a8eb);
+        border-collapse: collapse;
+        padding: 4px;
+        }
+        td.truncate {
+        display: inline-block;
+        white-space: nowrap;
+        }
+        table {
+        width: 100%;
+        text-align: left;
+        border-radius: 6px;
+        }
+        tr:hover {
+            background-color: var(--tg-theme-button-color, rgb(147, 198, 243));
+        }
     </style>
 </head>
 <body>
 <section>
-    <h1 id="greeting">Barang Sampel</h1>
+    <h1 id="greeting">Barang Sampel/Hadiah</h1>
     <div id="mulaiuji" style="display: none;">
         <table>
         <tr><td>Periode Akhir Pengujian </td><td><input type="text" name="event" id="event" required></td></tr>
@@ -157,7 +180,7 @@ if(urlParams.get('qtyitem').length>0){
     var tab1 = document.getElementById("qtybarang")
     var myParam = urlParams.get('data');
     var element = myParam.length>0 ? JSON.parse(atob(myParam)) : [];
-    var list = `<table> <tr><td>Nama</td><td>Qty</td></tr> `
+    var list = `<table> <tr><td>Nama Barang/Hadiah</td><td>Qty</td></tr> `
     var i = 0
     while (i < element.length) {
         list += `<tr><td>${element[i].name}</td><td><input type="number" id="${element[i].seq}" required></td></tr>`;
