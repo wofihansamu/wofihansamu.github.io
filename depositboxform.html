@@ -306,7 +306,7 @@ function toggleMainButton() {
         for (var i = 0; i < inputdef.length; i++) {
             collect += inputdef[i].id +'='+ inputdef[i].value + ':';
         }
-        var note = document.getElementById("note").value.toString().replace(new RegExp(escapeRegExp(":"), 'g'), ";");
+        var note = document.getElementById("note").value
         dataToSend = 'brankas:'+urlParams.get('mode').toUpperCase()+':'+document.getElementById("date").value+':'+urlParams.get('id')+':'+urlParams.get('uid')+":"+loc+'@' + collect + '@' + note
         mainButton.setParams({
             text: 'Send Request', 
