@@ -248,7 +248,7 @@ Telegram.WebApp.MainButton
             }
         }
         if(checked === element.BUKA.length + element.TUTUP.length){
-            var note = document.getElementById("note").value
+            var note = document.getElementById("note").value.toString().replace(new RegExp(escapeRegExp(":"), 'g'), ";");
             dataToSend = 'brankas:'+moment(element.trxdate).format("YYYY-MM-DD")+":"+note
                 mainButton.setParams({
                     text: 'Approve', 
