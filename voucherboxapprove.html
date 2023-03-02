@@ -287,7 +287,7 @@ Telegram.WebApp.MainButton
             }
         }
         if(checked === DataBrankas.length){
-            var note = document.getElementById("note").value.toString().replace(new RegExp(escapeRegExp(":"), 'g'), ";");
+            var note = document.getElementById("note").value
             dataToSend = 'voucher:'+moment(DataBrankas[0].trxdate).format("YYYY-MM-DD")+":"+note
                 mainButton.setParams({
                     text: 'Approve', 
