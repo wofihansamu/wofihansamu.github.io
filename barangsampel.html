@@ -176,7 +176,7 @@ var dataToSend = "";
 var urlParams = new URLSearchParams(window.location.search);
 var doc_no = urlParams.get('doc');
 console.log(urlParams.get('data'))
-if(urlParams.get('qtyitem').length>0){
+if(urlParams.get('qtyitem') && urlParams.get('qtyitem').length>0){
     var tab1 = document.getElementById("qtybarang")
     var myParam = urlParams.get('data');
     var element = myParam.length>0 ? JSON.parse(atob(myParam)) : [];
