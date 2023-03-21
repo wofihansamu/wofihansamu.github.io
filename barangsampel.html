@@ -231,7 +231,7 @@ function toggleMainButton() {
     }else{
         var event = document.getElementById("event").value;
         if(event.length<=0){alert("Tanggal Wajib diisi");return;}
-        dataToSend = `{"periode":"${event}","doc_no":"${doc_no}"}`
+        dataToSend = `{"period":"${event}","doc_no":"${doc_no}"}`
         mainButton.setParams({ text: 'Send Period', is_visible : true, is_active: true });
     } 
 }
