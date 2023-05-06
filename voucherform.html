@@ -185,15 +185,15 @@ function toggleMainButton() {
 
 
 (function() {
-document.getElementById("event").value = moment().format('DD-MMM-YYYY');
+//document.getElementById("event").value = moment().format('DD-MMM-YYYY');
 updateExpired()
 	$('input[name="event"]').daterangepicker(
 		{
             format:'DD-MMM-YYYY',
             singleDatePicker:true,
             showDropdowns: false,
-            startDate: moment(),
-            minDate: moment(),
+            //startDate: moment(),
+            minDate: moment('2023-03-01','YYYY-MM-DD'),
             maxDate: moment('2023-03-31','YYYY-MM-DD'),
             locale: {format: 'DD-MMM-YYYY'}
     });
