@@ -192,9 +192,8 @@ updateExpired()
             format:'DD-MMM-YYYY',
             singleDatePicker:true,
             showDropdowns: false,
-            //startDate: moment(),
-            minDate: moment('2023-03-01','YYYY-MM-DD'),
-            maxDate: moment('2023-03-31','YYYY-MM-DD'),
+            minDate: moment(),
+            maxDate: moment('2023-06-30','YYYY-MM-DD'),
             locale: {format: 'DD-MMM-YYYY'}
     });
 	Telegram.WebApp.expand();
