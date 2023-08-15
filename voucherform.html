@@ -204,7 +204,7 @@ var data = JSON.parse(atob(myParam));
 const select = document.querySelector('select'); 
 var i = 0;
 while (i < data.length) {
-    let newOption = new Option(data[i],data[i]);
+    let newOption = new Option(data[i].value,data[i].value);
     select.add(newOption);
     i++;
 }
