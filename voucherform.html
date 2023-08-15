@@ -36,6 +36,12 @@
 			border-radius: 4px;
 			border-color: var(--tg-theme-button-color, #50a8eb);
 		}
+
+        select{
+			border-radius: 4px;
+			border-color: var(--tg-theme-button-color, #50a8eb);
+            width: 100%;
+		}
 		
         button {
             display: block;
@@ -136,6 +142,11 @@
     <h1 id="greeting">Form Voucher</h1>
     <div id="buttons" >
 	<table>
+	<tr><td>Jenis Voucher</td><td> 
+        <select id="type" name="type" class="">
+            <option value="0">-Pilih Voucher-</option>
+          </select>
+    </td></tr>
 	<tr><td>Jumlah Peserta </td><td><input type="number" name="count" id="count" onchange="hideButton()" required></td></tr>
 	<tr><td>Tgl Acara </td><td><input type="text" name="event" id="event" onchange="updateExpired()" required></td></tr>
 	<tr><td>Tgl Kadaluarsa </td><td><input type="text" name="expired" id="expired" disabled></td></tr>
@@ -171,11 +182,13 @@ function toggleMainButton() {
 	var count = document.getElementById("count").value;
 	var expired = document.getElementById("expired").value;
 	var name = document.getElementById("name").value;
+	var vtype = document.getElementById("type").value;
     if(count.length<=0){alert("Jumlah Peserta Wajib diisi");return;}
     if(expired.length<=0){alert("Expired Wajib diisi");return;}
 	if(name.length<=0){alert("Nama Acara Wajib diisi");return;}
+	if(vtype==0){alert("Jenis Voucher harus dipilih");return;}
     const mainButton = Telegram.WebApp.MainButton;
-        dataToSend = count+";"+expired+";"+name;
+        dataToSend = count+";"+expired+";"+name+";"+vtype+";";
         mainButton.setParams({
             text: 'Send Request', 
             is_visible : true, 
@@ -185,15 +198,28 @@ function toggleMainButton() {
 
 
 (function() {
-document.getElementById("event").value = '';
+var urlParams = new URLSearchParams(window.location.search);
+var myParam = urlParams.get('ls');
+var data = JSON.parse(atob(myParam));
+const select = document.querySelector('select'); 
+var i = 0;
+while (i < data.length) {
+    let newOption = new Option(data[i],data[i]);
+    select.add(newOption);
+    i++;
+}
+
+
+document.getElementById("event").value = moment().format('DD-MMM-YYYY');
 updateExpired()
 	$('input[name="event"]').daterangepicker(
 		{
             format:'DD-MMM-YYYY',
             singleDatePicker:true,
             showDropdowns: false,
+            startDate: moment(),
             minDate: moment(),
-            maxDate: moment('2023-12-31','YYYY-MM-DD'),
+            // maxDate: moment('2023-06-30','YYYY-MM-DD'),
             locale: {format: 'DD-MMM-YYYY'}
     });
 	Telegram.WebApp.expand();
