@@ -159,6 +159,7 @@ var i = 0;
 while (i < data.length) {
     list += "<pre>";
     list += "<small>Store: "+data[i].store+"-"+data[i].store_name+"<br>count: <input type=number name=count id=count"+i+" value='"+data[i].count+"'>";
+    list += "<br>Voucher Type: "+data[i].vouchertype
     list += "<br>Event: "+data[i].event+"<br>Expired: "+data[i].expired+"<br>Event Name : "+data[i].event_name+"</small>";
 	list += "<button id='btnTime' onclick='ApproveButton("+i+")'>Approve</button><button class='button_red' onclick='RejectButton("+i+")'>Reject</button>";
     list += "</pre>"
