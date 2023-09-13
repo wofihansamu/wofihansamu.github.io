@@ -177,7 +177,7 @@ function showScanQrPopup(links_only) {
         });
     }
 (function() { 
-    if (initDataUnsafe.query_id && initData) {
+    // if (initDataUnsafe.query_id && initData) {
     $('#webview_data_status').show();
     $.ajax('https://sonar.au.ngrok.io/api/checkData', {
         type: 'POST',
@@ -194,7 +194,7 @@ function showScanQrPopup(links_only) {
         $('#webview_data_status').html('Server error').addClass('err');
         }
     });
-    }
+    // }
     webviewExpand();
     Telegram.WebApp.MainButton.setText('Close').show().onClick(function(){ webviewClose(); });
 })();
