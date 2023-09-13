@@ -134,8 +134,10 @@
 </head>
 <body style="visibility: hidden;">
     <section>
-        <button onclick="webviewExpand();">Scan Barang</button>
+        <button onclick="showScanQrPopup(true);">Scan Link</button>
+        <button onclick="showScanQrPopup();">Scan Barang</button>
         <pre><code id="webview_data"></code></pre>
+        <pre><code id="webview_data_unsafe"></code></pre>
         <div class="hint">
             Data passed to webview.
             <span id="webview_data_status" style="display: none;">Checking hash...</span>
@@ -149,7 +151,8 @@ var publicUrl = 'https://sonar.au.ngrok.io'
 var initData = Telegram.WebApp.initData || '';
 var initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
 $('body').css('visibility', '');
-$('#webview_data').html(JSON.stringify(initDataUnsafe, null, 2));
+$('#webview_data_unsafe').html(JSON.stringify(initDataUnsafe, null, 2));
+$('#webview_data').html(initData);
 
 function webviewExpand() {
   Telegram.WebApp.expand();
@@ -157,7 +160,7 @@ function webviewExpand() {
 function webviewClose() {
   Telegram.WebApp.close();
 }
-function showScanQrPopup(links_only) {
+function showScanQrPopup(links_only=false) {
         Telegram.WebApp.showScanQrPopup({
           text: links_only ? 'Scan Qr link' : 'Scan Qr Data'
         }, function(text) {
@@ -177,7 +180,7 @@ function showScanQrPopup(links_only) {
         });
     }
 (function() { 
-    // if (initDataUnsafe.query_id && initData) {
+    if (initDataUnsafe.query_id && initData) {
     $('#webview_data_status').show();
     $.ajax('https://sonar.au.ngrok.io/api/checkData', {
         type: 'POST',
@@ -191,10 +194,10 @@ function showScanQrPopup(links_only) {
         }
         },
         error: function(xhr) {
-        $('#webview_data_status').html('Server error').addClass('err');
+        $('#webview_data_status').html(JSON.stringify(xhr)).addClass('err');
         }
     });
-    // }
+    }
     webviewExpand();
     Telegram.WebApp.MainButton.setText('Close').show().onClick(function(){ webviewClose(); });
 })();
