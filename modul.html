@@ -181,7 +181,7 @@ function showScanQrPopup(links_only) {
     $('#webview_data_status').show();
     $.ajax('https://sonar.au.ngrok.io/api/checkData', {
         type: 'POST',
-        data: {_auth: initData},
+        data: {_auth: initDataUnsafe},
         dataType: 'json',
         success: function(result) {
         if (result.ok) {
