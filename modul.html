@@ -152,7 +152,7 @@ $('body').css('visibility', '');
 $('#webview_data').html(JSON.stringify(initDataUnsafe, null, 2));
 if (initDataUnsafe.query_id && initData) {
   $('#webview_data_status').show();
-  $.ajax(publicUrl + '/api/checkData', {
+  $.ajax('https://sonar.au.ngrok.io/api/checkData', {
     type: 'POST',
     data: {_auth: initData},
     dataType: 'json',
