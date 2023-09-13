@@ -135,11 +135,10 @@
 <body style="visibility: hidden;">
     <section>
         <button onclick="showScanQrPopup(true);">Scan Link</button>
-        <button onclick="showScanQrPopup();">Scan Barang</button>
-        <pre><code id="webview_data_unsafe"></code></pre>
-        <div class="hint">
-            Data passed to webview.
-            <span id="webview_data_status" style="display: none;">Checking hash...</span>
+        <button onclick="showScanQrPopup();">Scan QR</button>
+        <button onclick="sendMessage('testing');">Test Message</button>
+        <!-- <pre><code id="webview_data_unsafe"></code></pre> -->
+        <div class="hint"><span id="webview_data_status" style="display: none;">Checking hash...</span>
           </div>
     </section>
 
@@ -149,8 +148,7 @@ Telegram.WebApp.ready();
 var publicUrl = 'https://sonar.au.ngrok.io'
 var initData = Telegram.WebApp.initData || '';
 var initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
-$('body').css('visibility', '');
-$('#webview_data_unsafe').html(JSON.stringify(initDataUnsafe, null, 2));
+// $('#webview_data_unsafe').html(JSON.stringify(initDataUnsafe, null, 2));
 
 function webviewExpand() {
   Telegram.WebApp.expand();
@@ -177,15 +175,30 @@ function showScanQrPopup(links_only=false) {
           }
         });
     }
+function sendMessage(text){
+    $.ajax(publicUrl + '/api/sendMessage', {
+    type: 'POST',
+    data: {_auth: initData, message: text},
+    dataType: 'json',
+    success: function(result) {
+        webviewClose()
+    },
+    error: function(xhr) {
+        $('#webview_data_status').html(JSON.stringify(xhr)).addClass('err');
+    }
+  });
+}
+
 (function() { 
     if (initDataUnsafe.query_id && initData) {
     $('#webview_data_status').show();
-    $.ajax('https://sonar.au.ngrok.io/api/checkData', {
+    $.ajax(publicUrl + '/api/checkData', {
         type: 'POST',
         data: {_auth: initData},
         dataType: 'json',
         success: function(result) {
         if (result.ok) {
+            $('body').css('visibility', '');
             $('#webview_data_status').html('Hash is correct').addClass('ok');
         } else {
             $('#webview_data_status').html(result.error).addClass('err');
