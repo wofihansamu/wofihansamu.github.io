@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Modul</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        function setThemeClass() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        }
+        Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+        setThemeClass();
+    </script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #222222);
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            color-scheme: var(--tg-color-scheme);
+        }
+
+        a {
+            color: var(--tg-theme-link-color, #2678b6);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--tg-theme-button-color, #50a8eb);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            cursor: pointer;
+        }
+
+        button[disabled] {
+            opacity: 0.6;
+            cursor: auto;
+            pointer-events: none;
+        }
+
+        button.close_btn {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0;
+            margin: 0;
+            padding: 16px 20px;
+            text-transform: uppercase;
+        }
+
+        section {
+            padding: 15px 15px 65px;
+            text-align: center;
+        }
+
+        p {
+            margin: 40px 0 15px;
+        }
+
+        ul {
+            text-align: left;
+        }
+
+        li {
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 7px;
+        }
+
+        pre {
+            background: rgb(240,248,255);
+            border-radius: 4px;
+            padding: 4px;
+            margin: 7px 0;
+            word-break: break-all;
+            word-break: break-word;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .dark pre {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .hint {
+            font-size: .8em;
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        .ok {
+            color: green;
+        }
+
+        .err {
+            color: red;
+        }
+
+        #fixed_wrap {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            transform: translateY(100vh);
+        }
+
+        small {
+            font-size: 12px;
+        }
+    </style>
+
+
+
+
+
+</head>
+<body style="visibility: hidden;">
+    <section>
+        <pre><code id="webview_data"></code></pre>
+        <div class="hint">
+            Data passed to webview.
+            <span id="webview_data_status" style="display: none;">Checking hash...</span>
+          </div>
+    </section>
+
+
+    <script>
+Telegram.WebApp.ready();
+var initData = Telegram.WebApp.initData || '';
+var initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
+$('body').css('visibility', '');
+$('#webview_data').html(JSON.stringify(initDataUnsafe, null, 2));
+if (initDataUnsafe.query_id && initData) {
+  $('#webview_data_status').show();
+  $.ajax('/api/checkData', {
+    type: 'POST',
+    data: {_auth: initData},
+    dataType: 'json',
+    success: function(result) {
+      if (result.ok) {
+        $('#webview_data_status').html('Hash is correct').addClass('ok');
+      } else {
+        $('#webview_data_status').html(result.error).addClass('err');
+      }
+    },
+    error: function(xhr) {
+      $('#webview_data_status').html('Server error').addClass('err');
+    }
+  });
+}
+function webviewExpand() {
+  Telegram.WebApp.expand();
+}
+function webviewClose() {
+  Telegram.WebApp.close();
+}
+(function() { 
+    webviewExpand();
+    Telegram.WebApp.MainButton.setText('Close').show().onClick(function(){ webviewClose(); });
+})();
+    </script>
+</body>
+</html>
