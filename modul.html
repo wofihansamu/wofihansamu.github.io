@@ -191,6 +191,7 @@ function sendMessage(text){
 
 (function() { 
     if (initDataUnsafe.query_id && initData) {
+        console.log(initDataUnsafe)
     $('#webview_data_status').show();
     $.ajax(publicUrl + '/api/checkData', {
         type: 'POST',
