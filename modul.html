@@ -183,7 +183,7 @@
 <body>
   <!-- <div id="lds-ripple"> -->
     <div class="lds-ripple" id="lds-ripple"><div></div><div></div></div>
-    <span style="position: fixed; color: var(--tg-theme-text-color, #222222);" id="lds-ripple">Loading, Please wait...</span>
+    <span style="position: fixed; color: var(--tg-theme-text-color, #222222);" id="lds-ripple-text">Loading, Please wait...</span>
   <!-- </div> -->
     <section style="visibility: hidden;">
         <button onclick="showScanQrPopup(true);">Scan Link</button>
@@ -256,6 +256,7 @@ function sendMessage(text){
         success: function(result) {
         if (result.ok) {
             $('#lds-ripple').css('visibility', 'hidden');
+            $('#lds-ripple-text').css('visibility', 'hidden');
             $('section').css('visibility', '');
             $('#webview_data_status').html('Hash is correct').addClass('ok');
         } else {
