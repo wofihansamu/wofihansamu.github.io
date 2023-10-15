@@ -258,7 +258,7 @@ if(window.Telegram && window.Telegram?.WebApp) Telegram.WebApp.ready()
             $('#lds-ripple').css('visibility', 'hidden');
             $('#lds-ripple-text').css('visibility', 'hidden');
             $('section').css('visibility', '');
-            $('#webview_data_status').html('Hash is correct').addClass('ok');
+            $('#webview_data_status').html(result.device).addClass('ok');
         } else {
             $('#webview_data_status').html(result.error).addClass('err');
         }
