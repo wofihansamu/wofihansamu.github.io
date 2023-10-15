@@ -196,8 +196,8 @@
     </section>
 
 
-    <script>
-Telegram.WebApp.ready();
+<script>
+if(window.Telegram && window.Telegram?.WebApp) Telegram.WebApp.ready()
 var publicUrl = 'https://sonar.au.ngrok.io'
 var initData = Telegram.WebApp.initData || '';
 var initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
