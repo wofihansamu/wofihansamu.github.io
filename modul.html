@@ -197,7 +197,6 @@
 
 
 <script>
-if(window.Telegram && window.Telegram?.WebApp) Telegram.WebApp.ready()
 var publicUrl = 'https://sonar.au.ngrok.io'
 var initData = Telegram.WebApp.initData || '';
 var initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
@@ -247,6 +246,7 @@ function sendMessage(text){
 }
 
 (function() { 
+if(window.Telegram && window.Telegram?.WebApp) Telegram.WebApp.ready()
     if (initDataUnsafe.query_id && initData) {
     $('#webview_data_status').show();
     $.ajax(publicUrl + '/api/checkData', {
@@ -269,7 +269,7 @@ function sendMessage(text){
     });
     }
     webviewExpand();
-    Telegram.WebApp.MainButton.setText('Close').show().onClick(function(){ webviewClose(); });
+    // Telegram.WebApp.MainButton.setText('Close').show().onClick(function(){ webviewClose(); });
 })();
     </script>
 </body>
