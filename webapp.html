@@ -141,7 +141,7 @@ var storename  = dataAll.store;
 var list = "";
 var i = 0;
 while (i < data.length) {
-    list += `<pre><button id="btnTime" onclick="toggleMainButton('`+data[i].sku+`','`+data[i].sku_desc.replace(/`/g, '')+`')">`+data[i].sku+` - `+data[i].sku_desc+`</button>`;
+    list += `<pre><button id="btnTime" onclick="toggleMainButton('`+data[i].sku+`','`+data[i].sku_desc.replace(/[`']/g, '')+`')">`+data[i].sku+` - `+data[i].sku_desc+`</button>`;
     list += "<small>UPC: "+data[i].upc+",SOH: "+data[i].soh+"<br>Harga: "+data[i].retail+" ,Status:  "+data[i].stat+"</small></pre>";
     i++
 }
