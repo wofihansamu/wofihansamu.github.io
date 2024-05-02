@@ -132,12 +132,18 @@
     </style>
 </head>
 <body>
-   <video id="videoCam" width="240" height="320"></video>
-   <button id="opencam" onclick="openCam()">Open Cam</button>
-   <button id="click-photo" style="display: none;" onclick="toggleMainButton()">Take Photo</button>
-   <canvas id="canvas" width="60" height="80"></canvas>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <div id="fotoarea" style="margin: 0; padding: 0;">
+        <video id="videoCam" width="100%" ></video>
+        <canvas id="canvas" width="240" height="240"></canvas>
+        <canvas id="watermarked" width="240" height="240"></canvas>
+    </div>
+    <div id="buttonarea" style="margin: 0; padding: 0;">
+        <button id="opencam" onclick="openCam()">Open Camera</button>
+        <button id="click-photo" style="display: none;" onclick="takePhoto()">Take Photo</button>
+    </div>
+   
+    <script type="text/javascript" src="jquery-3.7.1.slim.min.js"></script>
+    <script type="text/javascript" src="moment.min.js"></script>
 <script type="application/javascript">
 var dataToSend = "";
 var video;
@@ -147,19 +153,78 @@ Telegram.WebApp.MainButton.onClick(function(){
     Telegram.WebApp.close();
 });
 
-function toggleMainButton() {
+function watermarkedDataURL(canvas,text){
+//   var tempCanvas=document.createElement('canvas');
+  var tempCanvas=document.getElementById('watermarked');
+  var tempCtx=tempCanvas.getContext('2d');
+  var cw,ch;
+  cw=tempCanvas.width=canvas.width;
+  ch=tempCanvas.height=canvas.height;
+  tempCtx.drawImage(canvas,0,0);
+  tempCtx.font="12px verdana";
+  var textWidth=tempCtx.measureText(text).width;
+  tempCtx.globalAlpha=.50;
+  tempCtx.fillStyle='black'
+  tempCtx.fillText(text,cw-textWidth-10,ch-20);
+  tempCtx.fillStyle='white'
+  tempCtx.fillText(text,cw-textWidth-10+2,ch-20+2);
+  // just testing by adding tempCanvas to document
+  canvas.style.display = 'none';
+//   document.getElementById('fotoarea').appendChild(tempCanvas);
+  return(tempCanvas.toDataURL());
+}
+
+function takePhoto() {
     const mainButton = Telegram.WebApp.MainButton;
     let canvas = document.querySelector("#canvas");
    	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    let smallSize = downScaleCanvas(canvas, 0.1)
-   	let image_data_url = smallSize.toDataURL();
-        dataToSend = image_data_url
+    var dataURL= watermarkedDataURL(canvas,'12 meter dari Hypermart Cyberpark')
+    document.querySelector("#videoCam").style.display= 'none';
+   	// let image_data_url = downScaleCanvas(canvas, 0.1).toDataURL();
+        dataToSend = dataURL
         mainButton.setParams({
             text: 'Upload Photo', 
             is_visible : true, 
             is_active: true
     });
 }
+function openCam(){
+    document.querySelector("#videoCam").style.display= 'block';
+    let All_mediaDevices=navigator.mediaDevices
+    if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+    console.log("getUserMedia() not supported.");
+    alert("getUserMedia() not supported.")
+    return;
+    }
+    All_mediaDevices.getUserMedia({
+    audio: false,
+    video: { 
+        facingMode: "environment",
+    }
+    })
+    .then(function(vidStream) {
+        video = document.getElementById('videoCam');
+        if ("srcObject" in video) {
+            video.srcObject = vidStream;
+        } else {
+            video.src = window.URL.createObjectURL(vidStream);
+        }
+        video.onloadedmetadata = function(e) {
+            video.play();
+        };
+        document.getElementById('opencam').style.display = "none";
+        document.getElementById('click-photo').style.display = "block";
+        })
+    .catch(function(e) {
+        console.error(e)
+    });
+}
+(function() {
+	Telegram.WebApp.expand();
+    openCam();
+})();
+
+
 // scales the canvas by (float) scale < 1
 // returns a new canvas containing the scaled image.
 function downScaleCanvas(cv, scale) {
@@ -286,36 +351,7 @@ function downScaleCanvas(cv, scale) {
     resCtx.putImageData(imgRes, 0, 0);
     return resCV;
 }
-function openCam(){
-    let All_mediaDevices=navigator.mediaDevices
-    if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
-    console.log("getUserMedia() not supported.");
-    return;
-    }
-    All_mediaDevices.getUserMedia({
-    audio: false,
-    video: { facingMode: { exact: 'environment' }}
-    })
-    .then(function(vidStream) {
-        video = document.getElementById('videoCam');
-        if ("srcObject" in video) {
-            video.srcObject = vidStream;
-        } else {
-            video.src = window.URL.createObjectURL(vidStream);
-        }
-        video.onloadedmetadata = function(e) {
-            video.play();
-        };
-        document.getElementById('opencam').style.display = "none";
-        document.getElementById('click-photo').style.display = "block";
-        })
-    .catch(function(e) {
-        console.log(e.name + ": " + e.message);
-    });
-}
-(function() {
-	Telegram.WebApp.expand();
-})();
+
    </script>
 </body>
 </html>
