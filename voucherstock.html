@@ -163,6 +163,8 @@
 	<table>
         <tr><th>Nominal</th><th>Qty</th><th>Value</th></tr>
         <tr><th colspan="3" >FISIK VOUCHER</th></tr>
+        <tr><td style="text-align: right;">500,000</td><td style="width: 90px;"><input id="v6" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><div id="v2b">0</div></td></tr>
+        <tr><td style="text-align: right;">300,000</td><td style="width: 90px;"><input id="v5" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><div id="v1b">0</div></td></tr>
         <tr><td style="text-align: right;">100,000</td><td style="width: 90px;"><input id="v1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td><div id="v1a">0</div></td></tr>
         <tr><td style="text-align: right;">50,000</td><td><input id="v2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v2a">0</div></td></tr>
         <tr><td style="text-align: right;">25,000</td><td><input id="v3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="v3a">0</div></td></tr>
@@ -172,6 +174,8 @@
 
     <table id="malam">
         <tr><th colspan="3">PENERIMAAN VOUCHER</th></tr>
+        <tr><td style="text-align: right;">500,000</td><td><input id="p6" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p2b">0</div></td></tr>
+        <tr><td style="text-align: right;">300,000</td><td><input id="p5" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p1b">0</div></td></tr>
         <tr><td style="text-align: right;">100,000</td><td><input id="p1" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p1a">0</div></td></tr>
         <tr><td style="text-align: right;">50,000</td><td><input id="p2" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p2a">0</div></td></tr>
         <tr><td style="text-align: right;">25,000</td><td><input id="p3" autocomplete="off" type="text" onfocus="defautlform(this)" onblur="nformat(this)" required></td><td> <div id="p3a">0</div></td></tr>
@@ -236,20 +240,28 @@ function defautlform(e){
 }
 
 
+let q500 = 0;
+let q300 = 0;
 let q100 = 0;
 let q50 = 0;
 let q25 = 0;
 let q10 = 0;
+let v500 = 0;
+let v300 = 0;
 let v100 = 0;
 let v50 = 0;
 let v25 = 0;
 let v10 = 0;
 let Tqty = 0;
 let Tval = 0;
+let pq500 = 0;
+let pq300 = 0;
 let pq100 = 0;
 let pq50 = 0;
 let pq25 = 0;
 let pq10 = 0;
+let pv500 = 0;
+let pv300 = 0;
 let pv100 = 0;
 let pv50 = 0;
 let pv25 = 0;
@@ -293,6 +305,18 @@ function nformat(e){
             v10 = nominal
             document.getElementById("v4a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
         }
+        if(e.id == 'v5' ){
+            q300 = val*1
+            nominal = val*300000
+            v300 = nominal
+            document.getElementById("v1b").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'v6' ){
+            q500 = val*1
+            nominal = val*500000
+            v500 = nominal
+            document.getElementById("v2b").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
 
 
         if(e.id == 'p1' ){
@@ -318,6 +342,18 @@ function nformat(e){
             pv10 = nominal
             pq10 = val*1
             document.getElementById("p4a").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'p5' ){
+            nominal = val*300000
+            pv300 = nominal
+            pq300 = val*1
+            document.getElementById("p1b").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        }
+        if(e.id == 'p6' ){
+            nominal = val*500000
+            pv500 = nominal
+            pq500 = val*1
+            document.getElementById("p2b").innerHTML = nominal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
         }
         if(e.id == 'm1' ){
             sisQty = val*1
@@ -345,10 +381,10 @@ function nformat(e){
 }
 
 function sumAll(){
-    Tqty = q10 + q25 + q50 + q100;
-    Tval = v10 + v25 + v50 + v100;
-    pTval = pv10 + pv25 + pv50 + pv100;
-    pTqty = pq10 + pq25 + pq50 + pq100;
+    Tqty = q10 + q25 + q50 + q100 + q300 + q500;
+    Tval = v10 + v25 + v50 + v100 + v300 + v500;
+    pTval = pv10 + pv25 + pv50 + pv100 + pv300 + pv500;
+    pTqty = pq10 + pq25 + pq50 + pq100 + pq300 + pq500;
     saleQty = cusQty + proQty;
     saleVal = cusVal + proVal;
     //Selisih
