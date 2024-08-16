@@ -201,7 +201,7 @@ function toggleMainButton() {
         swal("Isi Keterangan",'','info')
         return
     }
-    if(date.length<=0){
+    if(date.length<=0 && req !=='p4'){
         swal("Pilih Tanggal",'','info')
         return
     }
@@ -251,6 +251,7 @@ function keperluan(e){
             document.getElementById('tgl').style.display = "none";
             document.getElementById('employee').style.display = "contents";
             document.getElementById('employee').value = "";
+            $('#event').val(0)
             if(['p3'].includes(e.value)){
                 document.getElementById('tgl').style.display = "contents";
                 $('#txtTanggal').html("Sampai");
