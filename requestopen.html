@@ -220,6 +220,7 @@ function toggleMainButton() {
 
 function keperluan(e){
     hideButton();
+    console.log(console.log(e.value))
     switch (e.value) {
         case "p1":
         case "p2":
@@ -274,6 +275,14 @@ function keperluan(e){
                     hideButton();
                     document.getElementById('btnTime').style.display = "none";
                 });
+            }
+            if(['p4'].includes(e.value)){
+                $('#emp').on('blur', function() {
+                    document.getElementById('btnTime').style.display = "block";
+                })
+                $('#note').on('blur', function() {
+                    document.getElementById('btnTime').style.display = "block";
+                })
             }
             break;
         default:
