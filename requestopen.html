@@ -248,9 +248,11 @@ function keperluan(e){
             break;
         case "p3":
         case "p4":
+            document.getElementById('tgl').style.display = "none";
             document.getElementById('employee').style.display = "contents";
             document.getElementById('employee').value = "";
             if(['p3'].includes(e.value)){
+                document.getElementById('tgl').style.display = "contents";
                 $('#txtTanggal').html("Sampai");
                 $('#event').remove()
                 let dateElement2 = "<input type=\"text\" class=\"form-control\" id=\"event\" required>";
