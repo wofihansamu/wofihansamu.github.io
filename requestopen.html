@@ -149,6 +149,7 @@
         <!-- <option value="p1">Open Auto Close Form</option> -->
         <option value="p2">Call Back Date</option>
         <option value="p3">Temporary SGM Appointment</option>
+        <option value="p4">Opener Safe-deposit</option>
     </select>
     </td></tr>
 	<tr style="display: none;" id="employee"><td style="text-align: right;">ID Karyawan yang ditunjuk</td><td><input class="form-control" type="number" name="emp" id="emp" onfocus="hideButton()" required></td></tr>
@@ -246,28 +247,31 @@ function keperluan(e){
             });
             break;
         case "p3":
+        case "p4":
             document.getElementById('employee').style.display = "contents";
             document.getElementById('employee').value = "";
-            $('#txtTanggal').html("Sampai");
-            $('#event').remove()
-            let dateElement2 = "<input type=\"text\" class=\"form-control\" id=\"event\" required>";
-            $('.input-group.date').append(dateElement2)
-            $("#event").insertBefore( ".input-group-addon" );
-            $('#event').datepicker({
-                multidate: false, 
-                clearBtn: true,
-                todayHighlight: true,
-                keepEmptyValues: true,
-                disableTouchKeyboard: true,
-                format: 'dd-M-yyyy'
-            }).on('changeDate', function(e) {
-                if(document.getElementById('request').value !== "0"){
-                    document.getElementById('btnTime').style.display = "block";
-                }
-            }).on('clearDate', function(e) {
-                hideButton();
-                document.getElementById('btnTime').style.display = "none";
-            });
+            if(['p3'].includes(e.value)){
+                $('#txtTanggal').html("Sampai");
+                $('#event').remove()
+                let dateElement2 = "<input type=\"text\" class=\"form-control\" id=\"event\" required>";
+                $('.input-group.date').append(dateElement2)
+                $("#event").insertBefore( ".input-group-addon" );
+                $('#event').datepicker({
+                    multidate: false, 
+                    clearBtn: true,
+                    todayHighlight: true,
+                    keepEmptyValues: true,
+                    disableTouchKeyboard: true,
+                    format: 'dd-M-yyyy'
+                }).on('changeDate', function(e) {
+                    if(document.getElementById('request').value !== "0"){
+                        document.getElementById('btnTime').style.display = "block";
+                    }
+                }).on('clearDate', function(e) {
+                    hideButton();
+                    document.getElementById('btnTime').style.display = "none";
+                });
+            }
             break;
         default:
             document.getElementById('btnTime').style.display = "none";
