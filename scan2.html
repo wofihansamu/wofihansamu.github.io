@@ -176,9 +176,7 @@ const cameraOptions = document.querySelector('.video-options>select');
 docReady(function () {
 		Html5Qrcode.getCameras().then(devicesList => {
 			  if (devicesList && devicesList.length) {
-                console.log(devicesList)
-                //document.querySelector('#info').innerHTML = JSON.stringify(devicesList);
-				var cameraId = devicesList[1]?.id || devicesList[0].id;
+				var cameraId = devicesList.length === 1 ?  devicesList[0].id : devicesList[1].id;
 					html5QrCode = new Html5Qrcode("reader", 
 						{
 						experimentalFeatures: { useBarCodeDetectorIfSupported: true }
@@ -191,6 +189,7 @@ docReady(function () {
 						qrbox: { width: 250, height: 250 }
 					  },
 					  (decodedText, decodedResult) => {
+                        document.getElementById('info').innerText = decodedText
 							Telegram.WebApp.sendData(decodedText);
 							Telegram.WebApp.close();
 					  },
