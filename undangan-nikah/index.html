@@ -97,6 +97,7 @@
                 <a href="#couple" class="hover:text-gold transition"><i class="fas fa-user-friends text-xl"></i></a>
                 <a href="#event" class="hover:text-gold transition"><i class="fas fa-calendar-alt text-xl"></i></a>
                 <a href="#gallery" class="hover:text-gold transition"><i class="fas fa-images text-xl"></i></a>
+                <a href="#gift" class="hover:text-gold transition"><i class="fas fa-gift text-xl"></i></a>
                 <a href="#wishes" class="hover:text-gold transition"><i class="fas fa-comment-dots text-xl"></i></a>
             </nav>
 
@@ -242,7 +243,7 @@
             </section>
 
             <!-- GIFT / ANGPAO -->
-            <section class="py-20 px-4 bg-primary text-white text-center relative overflow-hidden">
+            <section id="gift" class="py-20 px-4 bg-primary text-white text-center relative overflow-hidden">
                 <div class="max-w-3xl mx-auto relative z-10">
                     <h2 class="font-script text-5xl mb-6">Wedding Gift</h2>
                     <p class="mb-8 font-light">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih Anda, kami menerima kado secara cashless.</p>
@@ -457,13 +458,15 @@
                 },
                 toggleMusic(forcePlay = false) {
                     const audio = this.$refs.bgMusic;
-                    if (forcePlay || this.$refs.bgMusic.paused) {
+                    if ((forcePlay || this.$refs.bgMusic.paused) && this.isPlaying===false) {
                         audio.play().then(() => {
                             this.isPlaying = true;
+                        console.log('Music playing');
                         }).catch(e => console.log("Autoplay blocked by browser", e));
                     } else {
                         audio.pause();
                         this.isPlaying = false;
+                        console.log('Music paused');
                     }
                 },
                 updateCountdown() {
