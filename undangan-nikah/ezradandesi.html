@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding</title>
+    
+    <!-- Vue.js 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Konfigurasi Tailwind & Custom Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D7B6F', // Sage Green
+                        secondary: '#A4C3B2',
+                        gold: '#C5A059',
+                        cream: '#F6F4F1',
+                        dark: '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animasi Custom */
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
+
+        .spin-slow { animation: spin 8s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #A4C3B2; border-radius: 4px; }
+        
+        .ornament {
+            position: absolute;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-cream text-dark antialiased overflow-x-hidden">
+
+    <div id="app">
+        
+        <!-- 1. COVER / WELCOME SCREEN (Overlay) -->
+        <transition name="fade">
+            <div v-if="!isOpened" class="fixed inset-0 z-50 bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4"
+                 :style="{ backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${heroImage}')` }">
+                
+                <h3 class="text-lg tracking-widest uppercase mb-4 animate-pulse">The Wedding of</h3>
+                <h1 class="font-script text-6xl md:text-8xl mb-6 text-gold">{{ groom.nickname }} & {{ bride.nickname }}</h1>
+                
+                <div class="border-t border-b border-white/50 py-4 px-8 mb-8 backdrop-blur-sm">
+                    <p class="font-serif italic text-xl">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                    <h2 class="font-bold text-2xl mt-2">{{guestName}}</h2>
+                </div>
+
+                <button @click="openInvitation" 
+                        class="bg-gold hover:bg-yellow-600 text-white px-8 py-3 rounded-full flex items-center gap-2 transition-all transform hover:scale-105 shadow-lg group">
+                    <i class="fas fa-envelope-open text-lg group-hover:animate-bounce"></i>
+                    <span>Buka Undangan</span>
+                </button>
+            </div>
+        </transition>
+
+        <!-- MAIN CONTENT (Hanya muncul setelah dibuka) -->
+        <div v-show="isOpened">
+            
+            <!-- Navbar Fixed Bottom (Mobile Friendly) -->
+            <nav class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-40 bg-white/90 backdrop-blur-md px-6 py-3 rounded-full shadow-xl border border-gray-200 flex gap-6 text-primary">
+                <a href="#home" class="hover:text-gold transition"><i class="fas fa-home text-xl"></i></a>
+                <a href="#couple" class="hover:text-gold transition"><i class="fas fa-user-friends text-xl"></i></a>
+                <a href="#event" class="hover:text-gold transition"><i class="fas fa-calendar-alt text-xl"></i></a>
+                <a href="#gallery" class="hover:text-gold transition"><i class="fas fa-images text-xl"></i></a>
+                <a href="#wishes" class="hover:text-gold transition"><i class="fas fa-comment-dots text-xl"></i></a>
+            </nav>
+
+            <!-- Floating Music Control -->
+            <button @click="toggleMusic" class="fixed top-4 right-4 z-40 bg-white/80 p-3 rounded-full shadow-lg text-primary hover:text-gold transition">
+                <i :class="isPlaying ? 'fas fa-compact-disc spin-slow' : 'fas fa-play'"></i>
+            </button>
+            
+            <!-- Audio Element -->
+            <audio ref="bgMusic" loop>
+                <!-- Menggunakan musik bebas royalti dari Bensound atau sumber sejenis -->
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            </audio>
+
+            <!-- HERO SECTION -->
+            <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative bg-fixed bg-cover bg-center"
+                     :style="{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.3)), url('${heroImage}')` }">
+                
+                <p class="font-serif italic text-primary mb-2 text-xl" data-aos="fade-up">We Are Getting Married</p>
+                <h1 class="font-script text-7xl md:text-9xl text-primary mb-4">{{ groom.nickname }} & {{ bride.nickname }}</h1>
+                <p class="text-lg tracking-[0.2em] font-bold text-gray-600 mb-8">{{ weddingDatePretty }}</p>
+                
+                <!-- Countdown -->
+                <div class="flex flex-wrap justify-center gap-4 text-center mb-12">
+                    <div v-for="(value, label) in countdown" :key="label" class="bg-primary text-white p-3 rounded-lg w-20 md:w-24 shadow-lg">
+                        <span class="text-2xl md:text-3xl font-bold block">{{ value }}</span>
+                        <span class="text-xs uppercase">{{ label }}</span>
+                    </div>
+                </div>
+
+                <div class="animate-bounce absolute bottom-24 text-primary">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </div>
+            </section>
+
+            <!-- AYAT / QUOTE -->
+            <section class="py-16 px-6 text-center bg-primary text-white">
+                <div class="max-w-3xl mx-auto">
+                    <i class="fas fa-quote-left text-4xl mb-6 opacity-50"></i>
+                    <p class="font-serif text-lg md:text-xl italic mb-6 leading-relaxed">
+                        "{{quote.text}}"
+                    </p>
+                    <p class="font-bold text-gold">{{quote.reference}}</p>
+                </div>
+            </section>
+
+            <!-- COUPLE SECTION -->
+            <section id="couple" class="py-20 px-4 bg-cream overflow-hidden">
+                <div class="max-w-6xl mx-auto text-center">
+                    <h2 class="font-script text-5xl text-primary mb-12">Mempelai</h2>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-12">
+                        
+                        <!-- Groom -->
+                        <div class="flex-1 transform transition hover:-translate-y-2 duration-300">
+                            <div class="relative w-64 h-64 mx-auto mb-6">
+                                <div class="absolute inset-0 border-4 border-gold rounded-full transform rotate-6"></div>
+                                <img :src="groom.photo" alt="Groom" class="w-full h-full object-cover rounded-full border-4 border-white shadow-xl relative z-10">
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold text-primary">{{ groom.fullName }}</h3>
+                            <p class="text-gold font-bold mb-2">Putra {{ groom.father }} & {{ groom.mother }}</p>
+                            <a :href="`https://instagram.com/${groom.instagram}`" target="_blank" class="inline-block bg-white p-2 rounded-full shadow hover:text-pink-600 transition">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                        </div>
+
+                        <div class="text-6xl text-gold font-script">&</div>
+
+                        <!-- Bride -->
+                        <div class="flex-1 transform transition hover:-translate-y-2 duration-300">
+                            <div class="relative w-64 h-64 mx-auto mb-6">
+                                <div class="absolute inset-0 border-4 border-gold rounded-full transform -rotate-6"></div>
+                                <img :src="bride.photo" alt="Bride" class="w-full h-full object-cover rounded-full border-4 border-white shadow-xl relative z-10">
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold text-primary">{{ bride.fullName }}</h3>
+                            <p class="text-gold font-bold mb-2">Putri {{ bride.father }} & {{ bride.mother }}</p>
+                            <a :href="`https://instagram.com/${bride.instagram}`" target="_blank" class="inline-block bg-white p-2 rounded-full shadow hover:text-pink-600 transition">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVENT DETAILS -->
+            <section id="event" class="py-20 px-4 bg-white relative bg-fixed bg-cover bg-center" 
+            :style="{ backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.3)), url('${heroImage}')` }">
+                <div class="max-w-5xl mx-auto text-center">
+                    <h2 class="font-script text-5xl text-primary mb-12">Rangkaian Acara</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Akad -->
+                        <div class="bg-cream p-8 rounded-2xl shadow-lg border-b-4 border-primary">
+                            <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold mb-2">{{akad.title}}</h3>
+                            <div class="text-gray-600 space-y-2">
+                                <p class="font-bold text-lg"><i class="far fa-calendar mr-2"></i>{{akad.date}}</p>
+                                <p><i class="far fa-clock mr-2"></i>{{akad.time}}</p>
+                                <p class="px-4 text-sm mt-4" v-html="akad.address"></p>
+                            </div>
+                        </div>
+
+                        <!-- Resepsi -->
+                        <div class="bg-cream p-8 rounded-2xl shadow-lg border-b-4 border-gold">
+                            <div class="w-16 h-16 bg-gold text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                                <i class="fas fa-glass-cheers"></i>
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold mb-2">Resepsi</h3>
+                            <div class="text-gray-600 space-y-2">
+                                <p class="font-bold text-lg"><i class="far fa-calendar mr-2"></i>{{resepsi.date}}</p>
+                                <p><i class="far fa-clock mr-2"></i>{{resepsi.date}}</p>
+                                <p class="px-4 text-sm mt-4" v-html="resepsi.address"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12">
+                        <a :href="mapsUrl" target="_blank" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition shadow-lg">
+                            <i class="fas fa-map-marked-alt"></i> Lihat Lokasi Google Maps
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GALLERY -->
+            <section id="gallery" class="py-20 px-4 bg-cream">
+                <div class="max-w-6xl mx-auto">
+                    <h2 class="font-script text-5xl text-primary text-center mb-12">Galeri Foto</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div v-for="(img, index) in gallery" :key="index" 
+                             :class="{'col-span-2 row-span-2': index % 5 === 0}"
+                             class="rounded-xl overflow-hidden shadow-lg group relative cursor-pointer h-full">
+                            <img :src="img" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Gallery">
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-heart text-white text-3xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GIFT / ANGPAO -->
+            <section class="py-20 px-4 bg-primary text-white text-center relative overflow-hidden">
+                <div class="max-w-3xl mx-auto relative z-10">
+                    <h2 class="font-script text-5xl mb-6">Wedding Gift</h2>
+                    <p class="mb-8 font-light">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih Anda, kami menerima kado secara cashless.</p>
+                    
+                    <button @click="showGiftModal = true" class="bg-gold text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-yellow-600 transition flex items-center gap-3 mx-auto">
+                        <i class="fas fa-gift text-2xl"></i> Kirim Hadiah
+                    </button>
+                </div>
+            </section>
+
+            <!-- WISHES / UCAPAN (Client Side Only) -->
+            <section id="wishes" class="py-20 px-4 bg-white mb-20">
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="font-script text-5xl text-primary text-center mb-12">Ucapan & Doa</h2>
+                    
+                    <!-- Form -->
+                    <div class="bg-cream p-6 rounded-xl shadow-md mb-8">
+                        <form @submit.prevent="submitWish">
+                            <div class="mb-4">
+                                <label class="block text-sm font-bold mb-2 text-primary">Nama</label>
+                                <input v-model="newWish.name" type="text" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary" placeholder="Nama Anda" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-bold mb-2 text-primary">Ucapan</label>
+                                <textarea v-model="newWish.message" rows="3" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary" placeholder="Tulis doa restu..." required></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-bold mb-2 text-primary">Konfirmasi Kehadiran</label>
+                                <select v-model="newWish.status" class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-primary">
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                    <option value="Masih Ragu">Masih Ragu</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-primary text-white py-2 rounded-lg font-bold hover:bg-opacity-90 transition">Kirim Ucapan</button>
+                        </form>
+                    </div>
+
+                    <!-- List Ucapan -->
+                    <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                        <div v-if="wishes.length === 0" class="text-center text-gray-400 italic">Belum ada ucapan. Jadilah yang pertama!</div>
+                        <div v-for="(wish, idx) in wishes" :key="idx" class="bg-white border border-gray-100 p-4 rounded-lg shadow-sm flex gap-4">
+                            <div class="w-10 h-10 rounded-full bg-secondary text-primary flex items-center justify-center font-bold text-lg shrink-0">
+                                {{ wish.name.charAt(0).toUpperCase() }}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">{{ wish.name }} 
+                                    <span :class="getStatusBadge(wish.status)" class="text-[10px] px-2 py-1 rounded-full text-white ml-2">{{ wish.status }}</span>
+                                </h4>
+                                <p class="text-gray-600 text-sm mt-1">{{ wish.message }}</p>
+                                <span class="text-xs text-gray-400 mt-2 block">{{ wish.date }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="bg-dark text-white text-center py-8 pb-24">
+                <h2 class="font-script text-3xl mb-2">{{ groom.nickname }} & {{ bride.nickname }}</h2>
+                <p class="text-xs text-gray-400"><a href="mailto:wofihansamu@gmail.com">Created by Wofi Hansamu Project.</a></p>
+            </footer>
+
+            <!-- MODAL GIFT -->
+            <div v-if="showGiftModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4" @click.self="showGiftModal = false">
+                <div class="bg-white w-full max-w-md rounded-2xl p-6 relative animate-[fadeIn_0.3s_ease-out]">
+                    <button @click="showGiftModal = false" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="fas fa-times text-xl"></i></button>
+                    
+                    <h3 class="font-serif text-2xl text-center font-bold text-primary mb-6">Amplop Digital</h3>
+                    
+                    <!-- Bank Item -->
+                    <div class="border rounded-xl p-4 mb-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase font-bold">{{ bankDetails.bankName }}</p>
+                            <p class="text-xl font-mono font-bold text-dark my-1">{{ bankDetails.account }}</p>
+                            <p class="text-sm">a.n {{ groom.fullName }}</p>
+                        </div>
+                        <button @click="copyText(bankDetails.account)" class="bg-gray-100 hover:bg-gold hover:text-white p-2 rounded-lg transition text-sm flex items-center gap-1">
+                            <i class="far fa-copy"></i> Salin / Copy
+                        </button>
+                    </div>
+
+                    <!-- QRIS Placeholder -->
+                    <div class="text-center mt-6">
+                        <p class="text-sm text-gray-500 mb-2">Scan QRIS</p>
+                        <!-- Ganti src ini dengan gambar QRIS asli -->
+                        <img :src="qrisSrc" class="mx-auto rounded-lg border p-2 w-48" alt="QRIS">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Notification -->
+            <transition name="fade">
+                <div v-if="toastMessage" class="fixed top-24 left-1/2 transform -translate-x-1/2 bg-dark text-white px-6 py-3 rounded-full shadow-xl z-50 flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-400"></i> {{ toastMessage }}
+                </div>
+            </transition>
+
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    isOpened: false,
+                    isPlaying: false,
+                    showGiftModal: false,
+                    guestName: 'Tamu Undangan',
+                    toastMessage: '',
+                    
+                    // Data Mempelai
+                    bride: {
+                        nickname: 'Juliet',
+                        fullName: 'Juliet Capulet, S.E',
+                        father: 'Bpk. Capulet',
+                        mother: 'Ibu Capulet',
+                        photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                        instagram: 'juliet'
+                    },
+                    groom: {
+                        nickname: 'Romeo',
+                        fullName: 'Romeo Montague, S.Kom',
+                        father: 'Bpk. Montague',
+                        mother: 'Ibu Montague',
+                        photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                        instagram: 'romeo'
+                    },
+
+                    // Waktu & Lokasi
+                    weddingDate: new Date("Dec 20, 2025 08:00:00").getTime(),
+                    countdown: { Hari: 0, Jam: 0, Menit: 0, Detik: 0 },
+                    mapsUrl: 'https://goo.gl/maps/placeholder',
+                    resepsi: {
+                        date: 'Minggu, 21 Desember 2025',
+                        time: '11:00 WIB - 14:00 WIB',
+                        address: 'Grand Ballroom Hotel Indonesia<br>Jl. Sudirman, Jakarta Pusat'
+                    },
+                    akad: {
+                        date: 'Sabtu, 20 Desember 2025',
+                        time: '08:00 WIB - 10:00 WIB',
+                        address: 'Kediaman Mempelai Wanita<br>Jl. Kenangan Indah No. 12, Jakarta',
+                        title: 'Pemberkatan'
+                    },
+
+                    // Bank Info
+                    bankDetails: {
+                        bankName: 'Bank BCA',
+                        account: '1234567890',
+                        qrisSrc: 'https://via.placeholder.com/200x200?text=QRIS+CODE',
+                    },
+
+                    //Quote
+                    quote: {
+                        text: '“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”',
+                        reference: 'QS. Ar-Rum: 21'
+                    },
+
+                    // Image & Galeri
+                    heroImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+                    gallery: [
+                        'https://images.unsplash.com/photo-1511285560982-1351cdeb9821?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        'https://images.unsplash.com/photo-1519225421980-715cb0202128?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        'https://images.unsplash.com/photo-1520854221256-17451cc330e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        'https://images.unsplash.com/photo-1529636721647-7813535e9491?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        'https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        'https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+                    ],
+
+                    // Ucapan
+                    newWish: { name: '', message: '', status: 'Hadir' },
+                    wishes: []
+                }
+            },
+            computed: {
+                weddingDatePretty() {
+                    return this.resepsi.date.toUpperCase();
+                }
+            },
+            mounted() {
+                //Set Title
+                document.title = `The Wedding of ${this.groom.nickname} & ${this.bride.nickname}`;
+
+                // Load ucapan dari localStorage jika ada
+                const storedWishes = localStorage.getItem('weddingWishes');
+                if (storedWishes) {
+                    this.wishes = JSON.parse(storedWishes);
+                }
+
+                // Jalankan countdown
+                setInterval(this.updateCountdown, 1000);
+            },
+            methods: {
+                openInvitation() {
+                    this.isOpened = true;
+                    this.toggleMusic(true);
+                    window.scrollTo(0, 0);
+                },
+                toggleMusic(forcePlay = false) {
+                    const audio = this.$refs.bgMusic;
+                    if (forcePlay || this.$refs.bgMusic.paused) {
+                        audio.play().then(() => {
+                            this.isPlaying = true;
+                        }).catch(e => console.log("Autoplay blocked by browser", e));
+                    } else {
+                        audio.pause();
+                        this.isPlaying = false;
+                    }
+                },
+                updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = this.weddingDate - now;
+
+                    if (distance < 0) {
+                        this.countdown = { Hari: 0, Jam: 0, Menit: 0, Detik: 0 };
+                        return;
+                    }
+
+                    this.countdown.Hari = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    this.countdown.Jam = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    this.countdown.Menit = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    this.countdown.Detik = Math.floor((distance % (1000 * 60)) / 1000);
+                },
+                submitWish() {
+                    if(!this.newWish.name || !this.newWish.message) return;
+
+                    const wish = {
+                        ...this.newWish,
+                        date: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})
+                    };
+
+                    // Add to beginning of array
+                    this.wishes.unshift(wish);
+                    
+                    // Save to local storage (Simulation only)
+                    localStorage.setItem('weddingWishes', JSON.stringify(this.wishes));
+
+                    // Reset form
+                    this.newWish = { name: '', message: '', status: 'Hadir' };
+                    this.showToast("Ucapan berhasil dikirim!");
+                },
+                getStatusBadge(status) {
+                    if(status === 'Hadir') return 'bg-green-500';
+                    if(status === 'Tidak Hadir') return 'bg-red-500';
+                    return 'bg-yellow-500';
+                },
+                copyText(text) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        this.showToast("No Rekening berhasil disalin!");
+                    });
+                },
+                showToast(msg) {
+                    this.toastMessage = msg;
+                    setTimeout(() => this.toastMessage = '', 3000);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
