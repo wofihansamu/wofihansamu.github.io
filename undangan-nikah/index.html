@@ -424,6 +424,14 @@
                     return this.resepsi.date.toUpperCase();
                 }
             },
+            created(){
+                //cek query p if have data change the guestName
+                const url = new URL(window.location.href);
+                const guest = url.searchParams.get("p");
+                
+                if (guest) this.guestName = this.capitalizeFirst(guest)
+
+            },
             mounted() {
                 //Set Title
                 document.title = `The Wedding of ${this.groom.nickname} & ${this.bride.nickname}`;
@@ -438,6 +446,10 @@
                 setInterval(this.updateCountdown, 1000);
             },
             methods: {
+                capitalizeFirst(text) {
+                    if (!text) return "";
+                    return text.replace(/\b\w/g, (c) => c.toUpperCase());
+                },
                 openInvitation() {
                     this.isOpened = true;
                     this.toggleMusic(true);
