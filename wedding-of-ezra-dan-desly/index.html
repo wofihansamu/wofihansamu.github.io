@@ -66,12 +66,32 @@
 
         /* Smooth Scroll */
         html { scroll-behavior: smooth; }
+
+        #loader.fade-out {
+            opacity: 0;
+            transition: opacity .6s ease;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="bg-cream text-dark antialiased overflow-x-hidden">
 
     <div id="app">
-        
+        <!-- LOADING FULLSCREEN -->
+        <div id="loader" style="
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-size: 22px;
+            font-family: Arial;
+        ">
+            Loading...
+        </div>
+
         <!-- 1. COVER / WELCOME SCREEN (Overlay) -->
         <transition name="fade">
             <div v-if="!isOpened" class="fixed inset-0 z-50 bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4"
@@ -495,6 +515,16 @@
 
             },
             mounted() {
+                window.onload = () => {
+                    const loader = document.getElementById('loader');
+
+                    // Animasi hilang
+                    loader.classList.add('fade-out');
+
+                    // Hilangkan dari DOM setelah animasi selesai
+                    setTimeout(() => loader.style.display = 'none', 600);
+                };
+                
                 //Set Title
                 document.title = `The Wedding of ${this.groom.nickname} & ${this.bride.nickname}`;
 
@@ -517,6 +547,7 @@
 
                 // Jalankan countdown
                 setInterval(this.updateCountdown, 1000);
+                
             },
             methods: {
                 capitalizeFirst(text) {
